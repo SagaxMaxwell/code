@@ -10,7 +10,10 @@ from unittest import IsolatedAsyncioTestCase, TestCase
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
-NOTEBOOKS = SRC / "python_notes" / "tutorials"
+NOTEBOOK_ROOTS = [
+    SRC / "python_notes" / "tutorials",
+    SRC / "python_notes" / "exercises",
+]
 
 
 class PackageStructureTest(TestCase):
@@ -20,7 +23,7 @@ class PackageStructureTest(TestCase):
         """核心包可以通过绝对路径导入。"""
         package = importlib.import_module("python_notes")
 
-        self.assertEqual(package.__all__, ["examples", "tutorials"])
+        self.assertEqual(package.__all__, ["examples", "exercises", "resources", "tutorials"])
 
     def test_all_only_defined_in_init_files(self) -> None:
         """普通模块不定义 __all__。"""
@@ -67,7 +70,7 @@ class NotebookSyntaxTest(TestCase):
 
     def test_notebooks_are_valid_json(self) -> None:
         """所有 notebook 都是合法 JSON。"""
-        notebooks = sorted(NOTEBOOKS.rglob("*.ipynb"))
+        notebooks = [path for root in NOTEBOOK_ROOTS for path in sorted(root.rglob("*.ipynb"))]
 
         self.assertGreater(len(notebooks), 0)
         for path in notebooks:
@@ -76,14 +79,16 @@ class NotebookSyntaxTest(TestCase):
             self.assertIn("cells", data)
 
     def test_code_cells_parse(self) -> None:
-        """所有代码单元都能通过 Python 语法解析。"""
+        """普通 Python 代码单元都能通过语法解析。"""
         failures: list[str] = []
-        for path in sorted(NOTEBOOKS.rglob("*.ipynb")):
+        for path in [notebook for root in NOTEBOOK_ROOTS for notebook in sorted(root.rglob("*.ipynb"))]:
             data = json.loads(path.read_text())
             for index, cell in enumerate(data.get("cells", [])):
                 if cell.get("cell_type") != "code":
                     continue
                 source = "".join(cell.get("source", []))
+                if source.lstrip().startswith(("%", "!", "?")):
+                    continue
                 try:
                     ast.parse(source, filename=f"{path}:{index}")
                 except SyntaxError as exc:
