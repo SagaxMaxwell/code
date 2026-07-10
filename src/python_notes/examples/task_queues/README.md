@@ -5,20 +5,20 @@
 ## Celery
 
 ```zsh
-celery -A python_notes.examples.task_queues.celery.work worker --loglevel=info
-python -m python_notes.examples.task_queues.celery.job
+celery -A python_notes.examples.task_queues.celery.tasks worker --loglevel=info
+python -m python_notes.examples.task_queues.celery.client
 ```
 
 ## Dramatiq
 
 ```zsh
-dramatiq python_notes.examples.task_queues.dramatiq.work
-python -m python_notes.examples.task_queues.dramatiq.job
+dramatiq python_notes.examples.task_queues.dramatiq.tasks
+python -m python_notes.examples.task_queues.dramatiq.client
 ```
 
 ## ARQ
 
 ```zsh
-arq python_notes.examples.task_queues.arq.work.WorkerSettings
-python -m python_notes.examples.task_queues.arq.job
+arq python_notes.examples.task_queues.arq.tasks.WorkerSettings
+python -m python_notes.examples.task_queues.arq.client
 ```

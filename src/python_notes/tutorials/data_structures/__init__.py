@@ -1,3 +1,3 @@
 """数据结构教程 notebook。"""
 
-__all__ = ["advanced_structures"]
+__all__ = ["advanced"]
