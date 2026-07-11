@@ -24,5 +24,6 @@ htmlcov/
 
 # Local files
 .DS_Store
+.obsidian/
 celerybeat-schedule
 celerybeat.pid
