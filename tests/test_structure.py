@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import importlib
 import json
+import re
 from pathlib import Path
 from unittest import IsolatedAsyncioTestCase, TestCase
 
@@ -14,6 +15,29 @@ NOTEBOOK_ROOTS = [
     SRC / "python_notes" / "tutorials",
     SRC / "python_notes" / "exercises",
 ]
+HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)(?:\s+#+\s*)?$")
+FENCE_RE = re.compile(r"^\s*(```+|~~~+)")
+
+
+def iter_notebooks() -> list[Path]:
+    """返回项目内所有 notebook。"""
+    return [path for root in NOTEBOOK_ROOTS for path in sorted(root.rglob("*.ipynb"))]
+
+
+def toggle_markdown_fence(
+    line: str, in_fence: bool, marker: str | None
+) -> tuple[bool, str | None]:
+    """跟踪 Markdown 代码围栏，避免把代码注释当标题。"""
+    match = FENCE_RE.match(line)
+    if not match:
+        return in_fence, marker
+
+    current = match.group(1)[0] * 3
+    if not in_fence:
+        return True, current
+    if marker == current:
+        return False, None
+    return in_fence, marker
 
 
 class PackageStructureTest(TestCase):
@@ -79,9 +103,7 @@ class NotebookSyntaxTest(TestCase):
 
     def test_notebooks_are_valid_json(self) -> None:
         """所有 notebook 都是合法 JSON。"""
-        notebooks = [
-            path for root in NOTEBOOK_ROOTS for path in sorted(root.rglob("*.ipynb"))
-        ]
+        notebooks = iter_notebooks()
 
         self.assertGreater(len(notebooks), 0)
         for path in notebooks:
@@ -92,11 +114,7 @@ class NotebookSyntaxTest(TestCase):
     def test_code_cells_parse(self) -> None:
         """Python 代码单元可解析。"""
         failures: list[str] = []
-        for path in [
-            notebook
-            for root in NOTEBOOK_ROOTS
-            for notebook in sorted(root.rglob("*.ipynb"))
-        ]:
+        for path in iter_notebooks():
             data = json.loads(path.read_text())
             for index, cell in enumerate(data.get("cells", [])):
                 if cell.get("cell_type") != "code":
@@ -108,5 +126,77 @@ class NotebookSyntaxTest(TestCase):
                     ast.parse(source, filename=f"{path}:{index}")
                 except SyntaxError as exc:
                     failures.append(f"{path.relative_to(ROOT)} cell {index}: {exc}")
+
+        self.assertEqual(failures, [])
+
+    def test_markdown_cells_have_consistent_structure(self) -> None:
+        """Markdown 单元有一致的标题层级和基础格式。"""
+        failures: list[str] = []
+        for path in iter_notebooks():
+            data = json.loads(path.read_text())
+            headings: list[tuple[int, int, str]] = []
+            for cell_index, cell in enumerate(data.get("cells", []), 1):
+                if cell.get("cell_type") != "markdown":
+                    continue
+
+                source = "".join(cell.get("source", []))
+                if not source.strip():
+                    failures.append(
+                        f"{path.relative_to(ROOT)} cell {cell_index}: empty markdown"
+                    )
+                if "\u00a0" in source:
+                    failures.append(
+                        f"{path.relative_to(ROOT)} cell {cell_index}: contains NBSP"
+                    )
+                for line_number, line in enumerate(source.splitlines(), 1):
+                    if line.rstrip() != line:
+                        failures.append(
+                            f"{path.relative_to(ROOT)} cell {cell_index} "
+                            f"line {line_number}: trailing whitespace"
+                        )
+
+                in_fence = False
+                fence_marker: str | None = None
+                lines = source.splitlines()
+                for line_number, line in enumerate(lines, 1):
+                    in_fence, fence_marker = toggle_markdown_fence(
+                        line, in_fence, fence_marker
+                    )
+                    if in_fence or FENCE_RE.match(line):
+                        continue
+
+                    match = HEADING_RE.match(line.strip())
+                    if not match:
+                        continue
+
+                    level = len(match.group(1))
+                    title = match.group(2).strip()
+                    headings.append((cell_index, level, title))
+
+                    next_line = lines[line_number] if line_number < len(lines) else ""
+                    if next_line.strip() and not HEADING_RE.match(next_line.strip()):
+                        failures.append(
+                            f"{path.relative_to(ROOT)} cell {cell_index} "
+                            f"line {line_number}: missing blank line after heading"
+                        )
+
+            if not headings:
+                failures.append(f"{path.relative_to(ROOT)}: missing markdown headings")
+                continue
+
+            h1_count = sum(1 for _, level, _ in headings if level == 1)
+            if h1_count != 1:
+                failures.append(f"{path.relative_to(ROOT)}: expected one H1")
+            if headings[0][1] != 1:
+                failures.append(f"{path.relative_to(ROOT)}: first heading is not H1")
+
+            previous_level = headings[0][1]
+            for cell_index, level, title in headings[1:]:
+                if level > previous_level + 1:
+                    failures.append(
+                        f"{path.relative_to(ROOT)} cell {cell_index}: "
+                        f"heading jumps H{previous_level} to H{level} ({title})"
+                    )
+                previous_level = level
 
         self.assertEqual(failures, [])

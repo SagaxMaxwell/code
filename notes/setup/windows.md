@@ -1,56 +1,25 @@
 ---
 date created: 2024-06-13 01:08
-date updated: 2026-05-08 23:53
+date updated: 2026-07-13 00:00
 ---
 
 # Windows 配置笔记
 
-#### 安装 DotNet
+#### Winget 管理
 
-```bash
-winget search Microsoft.DotNet
-winget install --id Microsoft.DotNet.SDK.8
-winget install --id Microsoft.DotNet.Runtime.8
-winget install --id Microsoft.DotNet.HostingBundle.8
-winget install --id Microsoft.DotNet.Framework.DeveloperPack_4
-winget install --id Microsoft.DotNet.DesktopRuntime.8
-winget install --id Microsoft.DotNet.AspNetCore.8
-```
-
-#### 安装 EADesktop
-
-```bash
-winget install --id ElectronicArts.EADesktop
-```
-
-#### Winget 查看软件列表
-
-```bash
+```powershell
 winget list
-```
-
-#### Winget 更新软件
-
-```bash
 winget upgrade --all
 ```
 
-#### 安装 Scoop
+#### Scoop 基础配置
 
-```bash
+```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-iex "& {$(irm get.scoop.sh)} -RunAsAdmin" 
-```
+irm get.scoop.sh | iex
 
-#### 安装 Git
-
-```bash
 scoop install git
-```
 
-#### 添加 Bucket
-
-```bash
 scoop bucket add extras
 scoop bucket add versions
 scoop bucket add nerd-fonts
@@ -59,179 +28,110 @@ scoop bucket add games
 scoop bucket add nonportable
 ```
 
-#### 安装 Aria2
+#### Scoop 网络工具
 
-```bash
+```powershell
+scoop install sing-box
 scoop install aria2
 ```
 
-#### 安装 Vivetool
+#### Scoop 可选系统调试工具
 
-```bash
+```powershell
 scoop install vivetool
 ```
 
-#### 安装 Dropbox
+#### Scoop 桌面应用
 
-```bash
+```powershell
 scoop install dropbox-np
-```
-
-#### 安装 Obsidian
-
-```bash
 scoop install obsidian
-```
-
-#### 安装 Notion
-
-```bash
 scoop install notion
-```
-
-#### 安装 VisualStudioCode
-
-```bash
 scoop install vscode
-```
-
-#### 安装 Zed Nightly
-
-```bash
-scoop install zed-nightly
-```
-
-#### 安装 Notepad3
-
-```bash
+scoop install zed
 scoop install notepad3
+scoop install everything
+scoop install draw.io
+scoop install snipaste
+scoop install wpsoffice
+scoop install googlechrome
 ```
 
-#### 安装 JDK
+#### Scoop 游戏工具
 
-```bash
-scoop install openjdk
+```powershell
+scoop install steam
+scoop install epic-games-launcher
 ```
 
-#### 安装 Rustup
+#### Scoop 多媒体工具
 
-```bash
-# install
+```powershell
+scoop install obs-studio
+scoop install mpv
+```
+
+#### Scoop 开发工具
+
+```powershell
 scoop install rustup
+rustup-init
 
-# choice version
-rustup install stable
-rustup install beta
-rustup install nightly
-
-# add component
-rustup component add rustfmt-preview
-rustup component add rls-preview
-rustup component add clippy-preview
-rustup component add rust-src
-rustup component list
-
-# set default toolchain
-rustup install stable-x86_64-pc-windows-gnu
-rustup set default-host x86_64-pc-windows-gnu
-rustup default stable-x86_64-pc-windows-gnu
-rustup show
-
-# cross compile
-cargo install cross
-
-# update
-rustup update
-
-# delete path
-rustup show
-rustup uninstall nightly
-rustup uninstall beta
-rustup uninstall stable
-rm ~/.rustup
-rm ~/.cargo
-```
-
-#### 安装 Node
-
-```bash
-scoop install nodejs
-```
-
-#### 安装 Python
-
-```bash
-scoop install python
-```
-
-#### 安装 Gcc
-
-```bash
-scoop install gcc
-```
-
-#### 安装 DotNet
-
-```bash
+scoop install main/uv
+scoop install llvm
 scoop install dotnet-sdk
 scoop install dotnet-script
 ```
 
-#### 安装 IBMPlex
+#### Scoop Nerd Fonts 和常用字体
 
-```bash
+```powershell
 scoop install IBMPlexMono
 scoop install IBMPlexMono-NF
 scoop install IBMPlexMono-NF-Propo
 scoop install IBMPlexMono-NF-Mono
 scoop install IBMPlexSans
+scoop install IBMPlexSans-Condensed
+scoop install IBMPlexSans-JP
+scoop install IBMPlexSans-KR
+scoop install IBMPlexSans-Thai
+scoop install IBMPlexSans-Thai-Looped
+scoop install IBMPlexSans-Arabic
+scoop install IBMPlexSans-Devanagari
+scoop install IBMPlexSans-Hebrew
 scoop install IBMPlexSerif
+scoop install JetBrains-Mono
+scoop install JetBrainsMono-NF
+scoop install JetBrainsMono-NF-Propo
+scoop install JetBrainsMono-NF-Mono
+scoop install Source-Han-Sans-SC
+scoop install Source-Han-Sans-TC
+scoop install Source-Han-Sans-HC
+scoop install Source-Han-Sans-J
+scoop install Source-Han-Sans-K
+scoop install Source-Han-Serif-SC
+scoop install Source-Han-Serif-TC
+scoop install Source-Han-Serif-HC
+scoop install Source-Han-Serif-J
+scoop install Source-Han-Serif-K
+scoop install Source-Han-Mono-SC
+scoop install LXGWWenKai
 ```
 
-#### 安装 SourceCodePro
+#### PowerShell 终端配置
 
-```bash
-scoop install SourceCodePro-NF-Mono
-scoop install SourceCodePro-NF-Propo
-scoop install SourceCodePro-NF
-```
-
-#### 安装 PWSH
-
-```bash
+```powershell
 scoop install pwsh
-```
-
-#### 安装 PSReadLine
-
-```bash
-scoop install PSReadLine
-```
-
-#### 安装 Posh-git
-
-```bash
 scoop install posh-git
-Add-PoshGitToProfile -Force
-```
-
-#### 安装 Terminal-icons
-
-```bash
 scoop install terminal-icons
-```
-
-#### 安装 Oh-my-posh
-
-```bash
 scoop install oh-my-posh
 scoop update oh-my-posh
 
-# 编辑当前终端配置
 New-Item -Path $PROFILE -Type File -Force
 notepad3 $PROFILE
+```
 
-%%
+```powershell
 # Define the themes
 $themes = @("neko", "bubbles")
 
@@ -244,14 +144,15 @@ oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\$selectedTheme.omp.json" | 
 Import-Module PSReadLine
 Import-Module posh-git
 Import-Module -Name Terminal-Icons
-%%
+```
 
+```powershell
 . $PROFILE
 ```
 
-#### 安装 Wezterm
+#### 终端和编辑器配置
 
-```bash
+```powershell
 scoop install wezterm
 
 mkdir -p $env:USERPROFILE\.config\wezterm
@@ -268,27 +169,20 @@ local config = wezterm.config_builder()
 -- Use a fixed color scheme
 config.color_scheme = "OneHalfDark"
 
--- Prefer GPU rendering for better performance (macOS)
+-- Prefer GPU rendering for better performance
 config.front_end = "WebGpu"
 
 -- Disable tab bar for slightly lower overhead
 config.enable_tab_bar = false
-
 config.default_prog = { "pwsh.exe" }
-config.default_cursor_style = "BlinkingUnderline"
-config.cursor_blink_rate = 500
-config.enable_tab_bar = false
-config.use_fancy_tab_bar = false
-config.color_scheme = color_scheme
 
 -- Return the configuration to wezterm
 return config
 ```
 
-#### 安装 Helix
-
-```bash
+```powershell
 scoop install helix
+
 New-Item -Path $env:USERPROFILE\AppData\Roaming\helix\config.toml -Type File -Force
 notepad3 $env:USERPROFILE\AppData\Roaming\helix\config.toml
 ```
@@ -367,57 +261,9 @@ enable = true
 supersede-menu = false
 ```
 
-#### 安装 Everything
+#### Scoop 高级命令
 
-```bash
-scoop install everything
-```
-
-#### 安装 Draw IO
-
-```bash
-scoop install draw.io
-```
-
-#### 安装 Snipaste
-
-```bash
-scoop install snipaste
-```
-
-#### 安装 WPS Office
-
-```bash
-scoop install wpsoffice
-```
-
-#### 安装 WeChat
-
-```bash
-scoop install wechat
-```
-
-#### 安装 GoogleChrome
-
-```bash
-scoop install googlechrome
-```
-
-#### 安装 Steam
-
-```bash
-scoop install steam
-```
-
-#### 安装 Epic-games-launcher
-
-```bash
-scoop install epic-games-launcher
-```
-
-#### 安装高级命令
-
-```zsh
+```powershell
 scoop install sudo            # sudo
 scoop install btop            # top
 scoop install bat             # cat
@@ -434,32 +280,20 @@ scoop install fzf             # fuzzy finder
 scoop install xh              # curl
 scoop install rsync           # sync
 scoop install socat           # network
+scoop install ffmpeg          # media
+scoop install resvg           # svg
+scoop install imagemagick     # image
 scoop install poppler-utils   # pdf
 scoop install 7zip            # archive
 scoop install yazi
 ```
 
-#### Scoop 查看软件列表
+#### Scoop 管理
 
-```bash
+```powershell
 scoop list
-```
-
-#### Scoop 查看源列表
-
-```bash
 scoop bucket list
-```
-
-#### Scoop 更新软件
-
-```bash
 scoop status
 scoop update *
-```
-
-#### Scoop 删除旧版本
-
-```bash
 scoop cleanup *
 ```
