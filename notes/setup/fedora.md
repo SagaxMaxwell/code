@@ -63,7 +63,7 @@ supergfxctl -s
 supergfxctl -g
 
 dnf copr enable hhd-dev/hhd
-dnf install -y adjustor hhd hhd-ui
+dnf install -y adjustor hhd hhd-ui openrgb
 
 systemctl enable --now hhd@$USER
 systemctl status hhd@$USER
@@ -291,12 +291,6 @@ flatpak remote-modify --enable flathub
 flatpak install -y flathub org.gnome.Tweaks com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal io.github.flattool.Warehouse
 ```
 
-#### Flatpak 同步和硬件工具
-
-```zsh
-flatpak install -y flathub com.samschott.maestral org.openrgb.OpenRGB
-```
-
 #### Flatpak 游戏工具
 
 ```zsh
@@ -307,7 +301,7 @@ flatpak run com.valvesoftware.Steam
 #### Flatpak 多媒体工具
 
 ```zsh
-flatpak install -y flathub com.obsproject.Studio io.github.dec05eba.gpu_screen_recorder io.mpv.Mpv
+flatpak install -y flathub com.obsproject.Studio com.dec05eba.gpu_screen_recorder io.mpv.Mpv
 ```
 
 #### Flatpak 桌面应用
