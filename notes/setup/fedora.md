@@ -294,8 +294,7 @@ flatpak install -y flathub org.gnome.Tweaks com.mattjakeman.ExtensionManager com
 #### Flatpak 游戏工具
 
 ```zsh
-flatpak install -y flathub com.vysp3r.ProtonPlus com.valvesoftware.Steam
-flatpak run com.valvesoftware.Steam
+flatpak install -y flathub com.vysp3r.ProtonPlus com.valvesoftware.Steam com.heroicgameslauncher.hgl
 ```
 
 #### Flatpak 多媒体工具
@@ -326,6 +325,7 @@ flatpak install -y flathub dev.zed.Zed com.visualstudio.code com.mitchellh.ghost
 #### Flatpak 更新
 
 ```zsh
+flatpak update --appstream
 flatpak update
 ```
 
