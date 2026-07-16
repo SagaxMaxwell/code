@@ -1,0 +1,36 @@
+# 图片资源
+
+- [[activations.png|activations]]: 激活函数总览图。
+- [[array_like.png|array_like]]: array-like 对象示意。
+- [[cosine.png|cosine]]: 余弦曲线示例图。
+- [[linspace.png|linspace]]: `linspace` 示例图。
+- [[matrix_argmin.png|matrix_argmin]]: 矩阵 `argmin` 示例图。
+- [[np_agg_1d.png|np_agg_1d]]: 一维数组聚合示例。
+- [[np_any.png|np_any]]: `np.any` 示例。
+- [[np_append.png|np_append]]: `np.append` 示例。
+- [[np_argsort.png|np_argsort]]: `np.argsort` 示例。
+- [[np_bool.png|np_bool]]: 布尔索引示例。
+- [[np_delete.png|np_delete]]: `np.delete` 示例。
+- [[np_dtypes.png|np_dtypes]]: NumPy 数据类型示例。
+- [[np_hstack.png|np_hstack]]: `hstack` 示例。
+- [[np_index.png|np_index]]: NumPy 索引示例。
+- [[np_insert.png|np_insert]]: `np.insert` 示例。
+- [[np_lexsort.png|np_lexsort]]: `np.lexsort` 示例。
+- [[np_matrix_agg_1.png|np_matrix_agg_1]]: 矩阵聚合示例一。
+- [[np_matrix_agg_2.png|np_matrix_agg_2]]: 矩阵聚合示例二。
+- [[np_pad.png|np_pad]]: `np.pad` 示例。
+- [[np_rand.png|np_rand]]: 随机数组示例。
+- [[np_repeat.png|np_repeat]]: `np.repeat` 示例。
+- [[np_reshape.png|np_reshape]]: `reshape` 示例。
+- [[np_rng.png|np_rng]]: 随机数生成器示例。
+- [[np_sort.png|np_sort]]: NumPy 排序示例。
+- [[np_split.png|np_split]]: 数组拆分示例。
+- [[np_stack.png|np_stack]]: `stack` 示例。
+- [[np_vhstack.png|np_vhstack]]: 垂直和水平拼接示例。
+- [[np_vs_list.png|np_vs_list]]: NumPy 数组和 Python 列表对比。
+- [[np_where.png|np_where]]: `np.where` 示例。
+- [[pandas.png|pandas]]: Pandas 表格示例图。
+- [[population.png|population]]: 人口数据示例图。
+- [[softmax.png|softmax]]: softmax 曲线。
+- [[swish.png|swish]]: swish 曲线。
+- [[table.png|table]]: 表格示例图。

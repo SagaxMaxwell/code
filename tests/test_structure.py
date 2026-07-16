@@ -48,7 +48,7 @@ class PackageStructureTest(TestCase):
         package = importlib.import_module("python_notes")
 
         self.assertEqual(
-            package.__all__, ["examples", "exercises", "resources", "tutorials"]
+            package.__all__, ["exercises", "resources", "task_queues", "tutorials"]
         )
 
     def test_all_only_defined_in_init_files(self) -> None:
@@ -72,10 +72,10 @@ class PackageStructureTest(TestCase):
     def test_task_functions_without_broker(self) -> None:
         """任务函数可直接测试。"""
         celery_work = importlib.import_module(
-            "python_notes.examples.task_queues.celery.tasks"
+            "python_notes.task_queues.celery.tasks"
         )
         dramatiq_work = importlib.import_module(
-            "python_notes.examples.task_queues.dramatiq.tasks"
+            "python_notes.task_queues.dramatiq.tasks"
         )
 
         self.assertEqual(celery_work.add.run(2, 3), 5)
@@ -90,7 +90,7 @@ class ArqTaskTest(IsolatedAsyncioTestCase):
 
     async def test_arq_tasks_without_worker(self) -> None:
         """ARQ 任务可直接执行。"""
-        arq_work = importlib.import_module("python_notes.examples.task_queues.arq.tasks")
+        arq_work = importlib.import_module("python_notes.task_queues.arq.tasks")
         ctx = {"processed_jobs": 0, "job_try": 3}
 
         self.assertEqual(await arq_work.add(ctx, 3, 7), 10)

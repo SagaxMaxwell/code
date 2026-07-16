@@ -15,7 +15,7 @@ NOTEBOOK = (
     / "src"
     / "python_notes"
     / "tutorials"
-    / "python_tools"
+    / "tools"
     / "pydantic.ipynb"
 )
 
