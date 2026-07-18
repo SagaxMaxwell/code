@@ -306,10 +306,7 @@ flatpak install -y flathub com.obsproject.Studio com.dec05eba.gpu_screen_recorde
 #### Flatpak 桌面应用
 
 ```zsh
-flatpak install -y flathub com.google.Chrome md.obsidian.Obsidian com.wps.Office com.jgraph.drawio.desktop
-flatpak run com.google.Chrome
-flatpak run md.obsidian.Obsidian
-flatpak run com.wps.Office
+flatpak install -y flathub com.google.Chrome md.obsidian.Obsidian com.wps.Office com.jgraph.drawio.desktop org.flameshot.Flameshot
 ```
 
 > Chrome Flatpak 是 Flathub wrapper，不是 Google 官方发布。

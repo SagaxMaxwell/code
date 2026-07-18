@@ -52,7 +52,7 @@ scoop install zed
 scoop install notepad3
 scoop install everything
 scoop install draw.io
-scoop install snipaste
+scoop install sharex
 scoop install wpsoffice
 scoop install googlechrome
 ```
