@@ -1,5 +1,5 @@
 ---
-date updated: 2026-07-10
+date updated: 2026-07-26
 ---
 
 # 爬虫与网页自动化
@@ -44,6 +44,8 @@ class QuotesSpider(scrapy.Spider):
 ```
 
 ## Playwright
+
+完整教程见 [[playwright|Playwright 教程]]。这里保留最小自动化示例：
 
 Playwright 自动等待元素可用，定位优先使用用户可感知语义。
 
@@ -94,4 +96,3 @@ driver.quit()
 - Scrapy 官方文档：<https://docs.scrapy.org/en/latest/>
 - Playwright Python 文档：<https://playwright.dev/python/docs/intro>
 - Selenium 官方文档：<https://www.selenium.dev/documentation/>
-

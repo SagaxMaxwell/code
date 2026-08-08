@@ -35,8 +35,8 @@ date updated: 2026-05-08 23:53
 
 | 修饰的元素 | 作用                                                  | 场景                                                |
 | ----- | --------------------------------------------------- | ------------------------------------------------- |
-| 类成员变量 | 成为类级别的变量，所有实例共享，直接通过类名访问，程序生命周期内始终存在                | 常量（如 `Math. PI`）、工具类中的变量（如长度单位）                   |
-| 类方法   | 成为类级别的，不需创建对象即可调用，不能直接访问非静态变量和方法，可以访问静态变量，可以有返回值和参数 | 工具类中的方法（如 `Math. Max (int a, int b)`）、初始化单例模式中的实例 |
+| 类成员变量 | 成为类级别的变量，所有实例共享，直接通过类名访问，程序生命周期内始终存在                | 常量（如 `Math.PI`）、工具类中的变量（如长度单位）                   |
+| 类方法   | 成为类级别的，不需创建对象即可调用，不能直接访问非静态变量和方法，可以访问静态变量，可以有返回值和参数 | 工具类中的方法（如 `Math.max(int a, int b)`）、初始化单例模式中的实例 |
 | 代码块   | 在类加载时执行，用于初始化静态变量，可以有返回值和参数                         | 初始化静态变量                                           |
 
 > 静态变量和静态方法在类加载时被创建，并且随着类的消失而消失
@@ -54,9 +54,9 @@ date updated: 2026-05-08 23:53
 #### `Model` 对象的主键如何定义自增、uuid 的生成策略、雪花算法
 
 - 自增主键
-	- `db. Column (db. Integer, primary_key=True, autoincrement=True)` 来定义一个自增主键
+	- `db.Column(db.Integer, primary_key=True, autoincrement=True)` 来定义一个自增主键
 - UUID
-	- 用 `db. Column (db. String (36), primary_key=True, unique=True, default=lambda id: uuid.uuid4().hex)` 来定义一个 UUID 主键
+	- 用 `db.Column(db.String(36), primary_key=True, unique=True, default=lambda id: uuid.uuid4().hex)` 来定义一个 UUID 主键
 	- UUID 是一种全局唯一的标识符，通常由系统生成，可以确保每个主键都是唯一的
 - 雪花算法
 	- Snowflake 是一种分布式 ID 生成算法，用于生成全局唯一 ID

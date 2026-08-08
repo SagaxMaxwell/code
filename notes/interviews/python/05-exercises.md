@@ -121,7 +121,7 @@ print(obj.__value)
 2
 ```
 
-> 打印 `obj. Value` 时，它返回的是通过 `@property` 装饰器定义的原始私有属性 `__value` 的值，而打印 `obj.__value` 时，它返回的是新创建的属性 `__value` 的值，即 2
+> 打印 `obj.value` 时，它返回的是通过 `@property` 装饰器定义的原始私有属性 `__value` 的值，而打印 `obj.__value` 时，它返回的是新创建的属性 `__value` 的值，即 2
 > 添加 `__slots__ = ('__value', )` 则可以禁止代码运行时动态的给对象添加新属性
 > `@property` 装饰器将属性转换为只读属性
 

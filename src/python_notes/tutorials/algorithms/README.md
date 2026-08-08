@@ -13,4 +13,5 @@
 - [[greedy.ipynb|greedy]]: 贪心算法。
 - [[backtracking.ipynb|backtracking]]: 回溯、递归和分治。
 - [[sort.ipynb|sort]]: 常见排序算法。
-- [[problems.ipynb|problems]]: 经典算法题库，包括 LeetCode 和 HuaWei OD 题目。
+- [[problems.ipynb|problems]]: 综合算法题库，保留来源混合的练习题。
+- [[leetcode.ipynb|leetcode]]: 按算法模式复盘 LeetCode 高频题。

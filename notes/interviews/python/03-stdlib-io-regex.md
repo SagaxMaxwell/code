@@ -33,7 +33,7 @@ os.remove(file_path)
 #### 如何用 Python 语言发送电子邮件？
 
 - Python 提供了 `smtplib` 和 `email` 模块，将这些模块导入到创建的邮件脚本中，并通过对用户进行身份验证来发送邮件
-- 它有一个方法 `SMTP (smtp-server, port)`，它需要两个参数来建立 SMTP 连接
+- 它有一个方法 `SMTP(smtp-server, port)`，它需要两个参数来建立 SMTP 连接
 
 ```python
 import smtplib
@@ -160,7 +160,7 @@ $$
 - `scipy`
 - `redis`
 - `celery`
-- `selenium`
+- `playwright`
 - `matplotlib`
 - `faker`
 
@@ -299,8 +299,8 @@ for root, dir_names, file_names in os.walk("/Users/Hao/Downloads"):
 
 - 分片
 - 分段读取
-- 通过 `read ()` 方法的 `size` 参数指定读取的大小
-- 通过 `seek ()` 方法的 `offset` 参数指定读取的位置
+- 通过 `read()` 方法的 `size` 参数指定读取的大小
+- 通过 `seek()` 方法的 `offset` 参数指定读取的位置
 
 ```python
 chunk_size = 2 * 1024 * 1024

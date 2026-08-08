@@ -1,5 +1,5 @@
 ---
-date updated: 2026-07-10
+date updated: 2026-07-26
 ---
 
 # Web API 与应用
@@ -16,6 +16,8 @@ API 层负责协议和边界，不负责堆业务细节：
 服务层负责业务规则。这样 CLI、定时任务、Gradio UI 和 FastAPI 都能复用同一套核心逻辑。
 
 ## FastAPI
+
+完整教程见 [[fastapi|FastAPI 教程]]。这里保留最小 API 层示例：
 
 ```python
 from fastapi import FastAPI
@@ -87,4 +89,3 @@ Reflex 用 Python 写全栈 UI，适合希望用 Python 管理前端状态的应
 - FastAPI 官方文档：<https://fastapi.tiangolo.com/>
 - Gradio 官方文档：<https://www.gradio.app/docs/>
 - Reflex 官方文档：<https://reflex.dev/docs/>
-

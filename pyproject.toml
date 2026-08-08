@@ -36,7 +36,3 @@ packages = ["src/python_notes"]
 
 [tool.ruff]
 target-version = "py312"
-extend-exclude = [
-    "src/python_notes/tutorials/**/*.ipynb",
-    "src/python_notes/exercises/**/*.ipynb",
-]

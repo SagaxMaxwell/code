@@ -8,6 +8,5 @@ __all__ = [
     "concurrency",
     "data",
     "ml",
-    "structures",
     "tools",
 ]

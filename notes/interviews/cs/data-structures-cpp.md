@@ -44,7 +44,7 @@ date updated: 2026-05-08 23:53
 
 | 特性       | 宏定义 (Macros)                               | 内联函数 (Inline Functions)               |
 | -------- | ------------------------------------------ | ------------------------------------- |
-| 定义方式     | ` #define MACRO_NAME (args) replacement  ` | `inline type function (args) { ... }` |
+| 定义方式     | `#define MACRO_NAME(args) replacement` | `inline type function(args) { ... }` |
 | 展开时机     | 编译前，由预处理器展开                                | 编译时，由编译器决定是否展开                        |
 | 类型和参数安全性 | 无类型和参数检查，可能导致类型错误                          | 进行类型和参数检查，更安全                         |
 | 性能       | 通常没有函数调用的开销                                | 减少了函数调用的开销，但可能不如宏定义快                  |

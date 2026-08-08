@@ -1,190 +1,163 @@
 ---
 date created: 2024-06-13 01:08
-date updated: 2026-07-13 00:00
+date updated: 2026-08-05 00:00
 ---
 
 # Windows 配置笔记
 
-#### Winget 管理
+> Winget 管系统自带包管理和安装器类应用；Scoop 管便携应用、开发工具、字体和终端环境。
+
+---
+
+## Winget
+
+### 管理
 
 ```powershell
+winget source update
 winget list
-winget upgrade --all
+winget upgrade
+winget upgrade --all --include-unknown
 ```
 
-#### Scoop 基础配置
+---
+
+## Scoop
+
+### 基础配置
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-irm get.scoop.sh | iex
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
 scoop install git
 
 scoop bucket add extras
-scoop bucket add versions
 scoop bucket add nerd-fonts
-scoop bucket add java
 scoop bucket add games
 scoop bucket add nonportable
+
+scoop checkup
 ```
 
-#### Scoop 网络工具
+### 网络工具
 
 ```powershell
-scoop install sing-box
-scoop install aria2
+scoop install sing-box aria2
+scoop config aria2-warning-enabled false
 ```
 
-#### Scoop 可选系统调试工具
+### 系统调试工具（可选）
 
 ```powershell
 scoop install vivetool
 ```
 
-#### Scoop 桌面应用
+### 桌面应用
 
 ```powershell
-scoop install dropbox-np
-scoop install obsidian
-scoop install notion
-scoop install vscode
-scoop install zed
-scoop install notepad3
-scoop install everything
-scoop install draw.io
-scoop install sharex
-scoop install wpsoffice
-scoop install googlechrome
+scoop install dropbox-np obsidian notion vscode zed notepad3 everything draw.io sharex wpsoffice googlechrome
 ```
 
-#### Scoop 游戏工具
+> `dropbox-np` 来自 nonportable bucket，可能触发 UAC 或安装到 Scoop 目录外。
+
+### 游戏工具
 
 ```powershell
-scoop install steam
-scoop install epic-games-launcher
+scoop install steam epic-games-launcher
 ```
 
-#### Scoop 多媒体工具
+> Linux/Steam 游戏环境配置见 [[dnf-flatpak-steam|DNF + Flatpak + Steam]]
+
+### ROG 轻量控制工具（可选）
 
 ```powershell
-scoop install obs-studio
-scoop install mpv
+scoop install windowsdesktop-runtime g-helper
 ```
 
-#### Scoop 开发工具
+> [G-Helper](https://github.com/seerge/g-helper) 是轻量 Armoury Crate 替代方案；需要 .NET Desktop Runtime 和 ASUS System Control Interface。ASUS System Control Interface 通常出厂已带，缺失或损坏时再从 ASUS 支持页安装。
+
+### 多媒体和图形工具
 
 ```powershell
-scoop install rustup
-rustup-init
-
-scoop install main/uv
-scoop install llvm
-scoop install dotnet-sdk
-scoop install dotnet-script
+scoop install obs-studio mpv ffmpeg imagemagick resvg poppler-utils
 ```
 
-#### Scoop Nerd Fonts 和常用字体
+### 开发工具
 
 ```powershell
-scoop install IBMPlexMono
-scoop install IBMPlexMono-NF
-scoop install IBMPlexMono-NF-Propo
-scoop install IBMPlexMono-NF-Mono
-scoop install IBMPlexSans
-scoop install IBMPlexSans-Condensed
-scoop install IBMPlexSans-JP
-scoop install IBMPlexSans-KR
-scoop install IBMPlexSans-Thai
-scoop install IBMPlexSans-Thai-Looped
-scoop install IBMPlexSans-Arabic
-scoop install IBMPlexSans-Devanagari
-scoop install IBMPlexSans-Hebrew
+scoop install rustup uv llvm
+```
+
+### Nerd Fonts 和常用字体
+
+```powershell
+scoop install IBMPlexMono IBMPlexMono-NF IBMPlexMono-NF-Propo IBMPlexMono-NF-Mono
+scoop install IBMPlexSans IBMPlexSans-Condensed IBMPlexSans-JP IBMPlexSans-KR IBMPlexSans-Thai IBMPlexSans-Thai-Looped IBMPlexSans-Arabic IBMPlexSans-Devanagari IBMPlexSans-Hebrew
 scoop install IBMPlexSerif
-scoop install JetBrains-Mono
-scoop install JetBrainsMono-NF
-scoop install JetBrainsMono-NF-Propo
-scoop install JetBrainsMono-NF-Mono
-scoop install Source-Han-Sans-SC
-scoop install Source-Han-Sans-TC
-scoop install Source-Han-Sans-HC
-scoop install Source-Han-Sans-J
-scoop install Source-Han-Sans-K
-scoop install Source-Han-Serif-SC
-scoop install Source-Han-Serif-TC
-scoop install Source-Han-Serif-HC
-scoop install Source-Han-Serif-J
-scoop install Source-Han-Serif-K
-scoop install Source-Han-Mono-SC
-scoop install LXGWWenKai
+scoop install JetBrains-Mono JetBrainsMono-NF JetBrainsMono-NF-Propo JetBrainsMono-NF-Mono
+scoop install Source-Han-Sans-SC Source-Han-Sans-TC Source-Han-Sans-HC Source-Han-Sans-J Source-Han-Sans-K
+scoop install Source-Han-Serif-SC Source-Han-Serif-TC Source-Han-Serif-HC Source-Han-Serif-J Source-Han-Serif-K
+scoop install Source-Han-Mono-SC LXGWWenKai
 ```
 
-#### PowerShell 终端配置
+### PowerShell 终端配置
 
 ```powershell
-scoop install pwsh
-scoop install posh-git
-scoop install terminal-icons
-scoop install oh-my-posh
-scoop update oh-my-posh
+scoop install pwsh posh-git terminal-icons oh-my-posh
 
-New-Item -Path $PROFILE -Type File -Force
+New-Item -Path (Split-Path $PROFILE) -ItemType Directory -Force
+New-Item -Path $PROFILE -ItemType File -Force
 notepad3 $PROFILE
 ```
 
 ```powershell
-# Define the themes
 $themes = @("neko", "bubbles")
-
-# Randomly select one theme
 $selectedTheme = Get-Random -InputObject $themes
 
-# Initialize oh-my-posh with the selected theme
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\$selectedTheme.omp.json" | Invoke-Expression
 
-Import-Module PSReadLine
 Import-Module posh-git
-Import-Module -Name Terminal-Icons
+Import-Module Terminal-Icons
 ```
 
 ```powershell
 . $PROFILE
 ```
 
-#### 终端和编辑器配置
+### WezTerm 配置
 
 ```powershell
 scoop install wezterm
 
-mkdir -p $env:USERPROFILE\.config\wezterm
-New-Item -Path $env:USERPROFILE\.config\wezterm\wezterm.lua -ItemType File
-notepad3 $env:USERPROFILE\.config\wezterm\wezterm.lua
+$weztermConfig = Join-Path $env:USERPROFILE ".config\wezterm"
+New-Item -Path $weztermConfig -ItemType Directory -Force
+New-Item -Path (Join-Path $weztermConfig "wezterm.lua") -ItemType File -Force
+notepad3 (Join-Path $weztermConfig "wezterm.lua")
 ```
 
 ```lua
 local wezterm = require("wezterm")
 
--- Build configuration
 local config = wezterm.config_builder()
 
--- Use a fixed color scheme
 config.color_scheme = "OneHalfDark"
-
--- Prefer GPU rendering for better performance
 config.front_end = "WebGpu"
-
--- Disable tab bar for slightly lower overhead
 config.enable_tab_bar = false
 config.default_prog = { "pwsh.exe" }
 
--- Return the configuration to wezterm
 return config
 ```
+
+### Helix 配置
 
 ```powershell
 scoop install helix
 
-New-Item -Path $env:USERPROFILE\AppData\Roaming\helix\config.toml -Type File -Force
-notepad3 $env:USERPROFILE\AppData\Roaming\helix\config.toml
+$helixConfig = Join-Path $env:APPDATA "helix"
+New-Item -Path $helixConfig -ItemType Directory -Force
+New-Item -Path (Join-Path $helixConfig "config.toml") -ItemType File -Force
+notepad3 (Join-Path $helixConfig "config.toml")
 ```
 
 ```toml
@@ -261,10 +234,10 @@ enable = true
 supersede-menu = false
 ```
 
-#### Scoop 高级命令
+### 高级命令
 
 ```powershell
-scoop install sudo            # sudo
+scoop install gsudo           # sudo
 scoop install btop            # top
 scoop install bat             # cat
 scoop install eza             # ls
@@ -280,20 +253,29 @@ scoop install fzf             # fuzzy finder
 scoop install xh              # curl
 scoop install rsync           # sync
 scoop install socat           # network
-scoop install ffmpeg          # media
-scoop install resvg           # svg
-scoop install imagemagick     # image
-scoop install poppler-utils   # pdf
 scoop install 7zip            # archive
 scoop install yazi
 ```
 
-#### Scoop 管理
+> Windows 11 24H2 自带 `sudo`，需要更完整的提权体验时用 `gsudo`。
+
+### 管理
 
 ```powershell
 scoop list
 scoop bucket list
 scoop status
+scoop update
 scoop update *
 scoop cleanup *
+scoop cache rm *
+scoop checkup
 ```
+
+---
+
+## 注意事项
+
+- GUI 应用如 VS Code、Zed、Chrome 尽量交给 Scoop 更新，不要和应用内自更新混用
+- nonportable bucket 的应用可能触发 UAC，也可能写入 Scoop 目录外的位置
+- G-Helper 不建议和 Armoury Crate 服务同时使用，避免互相覆盖性能、风扇、显卡、刷新率等设置

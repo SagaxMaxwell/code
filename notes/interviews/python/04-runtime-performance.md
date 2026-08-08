@@ -94,7 +94,7 @@ thread.join()
 
 #### 如何剖析 Python 代码的执行性能？
 
-- 剖析代码性能可以使用 Python 标准库中的 `cProfile` 和 `pstats` 模块，`cProfile` 的 `run ()` 函数可以执行代码并收集统计信息，创建出 `Stats` 对象并打印简单的剖析报告
+- 剖析代码性能可以使用 Python 标准库中的 `cProfile` 和 `pstats` 模块，`cProfile` 的 `run()` 函数可以执行代码并收集统计信息，创建出 `Stats` 对象并打印简单的剖析报告
 - `Stats` 是 `pstats` 模块中的类，它是一个统计对象
 - 可以使用三方工具 `line_profiler` 和 `memory_profiler` 来剖析每一行代码耗费的时间和内存，这两个三方工具都会用非常友好的方式输出剖析结构
 

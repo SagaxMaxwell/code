@@ -1,6 +1,6 @@
 ---
 date created: 2024-07-29 11:55
-date updated: 2026-05-08 23:53
+date updated: 2026-07-24
 ---
 
 # Flask 面试笔记
@@ -149,47 +149,65 @@ def handle_unhandled_exception(e):
 - `jinja2`
 - `session`
 
-#### 如何获取 Flask 的开发框架版本
+#### 如何安装 Flask
 
-- 使用 `git` 获取
+- 在项目虚拟环境里安装发布版，并用 CLI 验证版本。
+
+```bash
+python -m pip install Flask
+flask --version
+```
+
+#### 如何本地调试 Flask 源码
+
+- 现代 Python 项目使用 `pyproject.toml` 和可编辑安装，不再使用 `python setup.py develop`。
 
 ```bash
 git clone https://github.com/pallets/flask
-cd flask && python3 setup.py develop
+cd flask
+python -m pip install -e ".[dev]"
+python -m pytest
 ```
 
-#### 如何安装 Flask
+#### 如何创建现代 AJAX 或局部更新
 
-```bash
-pip install flask
-```
-
-#### 如何创建 AJAX 应用程序
-
-- 使用 Flask-Sijax（简单 AJAX）
-- Flask-Sijax 是使用 Python/jQuery 的扩展
-- 初始化并配置完成后，则支持 `@flask_sijax` 装饰器（装饰视图函数）
+- 现代浏览器直接使用内置 `fetch()`，后端返回字典或 `jsonify()`。
+- 发送 JSON 时要设置 `Content-Type: application/json`，后端用 `request.get_json()` 或 `request.json` 解析。
+- 不建议新项目使用 Flask-Sijax 这类依赖 jQuery 回调包装的旧方案。
 
 ```python
-import os
-from flask import Flask, g, render_template
-import flask_sijax
+from flask import Flask, jsonify, render_template, request
 
-path = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
 app = Flask(__name__)
 
-app.config['SIJAX_STATIC_PATH'] = path
-app.config['SIJAX_JSON_URI'] = '/static/js/sijax/json2.js'
-flask_sijax.Sijax(app)
+@app.get("/")
+def index():
+    return render_template("index.html")
 
-@flask_sijax.route(app, '/hello')
-def hello():
-    def say_hi(obj_response):
-        obj_response.alert('Hi there!')
-    if g.sijax.is_sijax_request:
-        g.sijax.register_callback('say_hi', say_hi)
-        return g.sijax.process_request()
-    return render_template('sijaxexample.html')
+@app.post("/api/greet")
+def greet():
+    payload = request.get_json(silent=True) or {}
+    name = str(payload.get("name") or "world").strip()
+    return jsonify(message=f"Hi {name}")
+```
+
+```html
+<button id="greet">Greet</button>
+<output id="result"></output>
+
+<script>
+const result = document.querySelector("#result");
+
+document.querySelector("#greet").addEventListener("click", async () => {
+  const response = await fetch("/api/greet", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({name: "Flask"}),
+  });
+  const data = await response.json();
+  result.value = data.message;
+});
+</script>
 ```
 
 #### AJAX 是什么
@@ -206,7 +224,13 @@ def hello():
 
 #### 如何修改主机地址和端口
 
-- 修改 `run()` 方法的值传递
+- 开发环境优先使用 Flask CLI。
+
+```bash
+flask --app app run --host 0.0.0.0 --port 8080
+```
+
+- 单文件脚本也可以在 `if __name__ == "__main__"` 中调用 `run()`。
 
 ```python
 # run 函数值传递
@@ -235,7 +259,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     val = request.args.get("var")
-    return "Hello, World! {}".format(val)
+    return f"Hello, World! {val}"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
@@ -254,13 +278,13 @@ def index():
     val = request.args.get("var")
     user_agent = request.headers.get("User-Agent")
 
-    response = """
+    response = f"""
     <p>
-        Hello, World! {}
+        Hello, World! {val}
         <br/>
-        You are accessing this app with {}
+        You are accessing this app with {user_agent}
     </p>
-    """.format(val, user_agent)
+    """
     return response
 
 if __name__ == "__main__":
@@ -328,9 +352,10 @@ if __name__ == '__main__':
 
 #### 如何将 Twitter 或类似 API 与 Flask 应用程序集成
 
-- 同时使用 Flask-Social 和 Flask-Security
-- 可验证 Twitter、Facebook、Google 等账户
-- 还需要通过在外部帐户提供商上注册 Flask 应用程序来获取使用者密钥和安全密钥
+- 新项目优先使用 OAuth 2.0 / OpenID Connect 客户端库，例如 Authlib。
+- 在外部身份提供商注册应用，保存 client id、client secret、redirect URI 和 scopes。
+- 回调视图校验 `state`，交换 token，再把外部账号和本地用户绑定。
+- 不建议把 Flask-Social 当作新项目首选方案；Flask-Security 更偏本地认证、权限和会话管理，不等同于第三方 OAuth 集成。
 
 #### 为什么 Flask 被称为微框架
 
@@ -354,46 +379,58 @@ if __name__ == '__main__':
 
 #### 如何在 Flask 中创建一个 RESTful 应用程序
 
-- Flask-API
-- Flask-RESTful
-- Flask-RESTX
-- Connexion
+- 小型 API 可以直接使用 Flask 路由返回字典或 `jsonify()`。
+- 需要 OpenAPI、请求校验和类型契约时，可以接入 Pydantic、apispec、Connexion 或 APIFlask。
+- 已有 Flask 项目需要资源路由组织时，可以评估 Flask-RESTX；API-first 新项目也可以直接评估 FastAPI。
+
+```python
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.post("/api/items")
+def create_item():
+    payload = request.get_json()
+    return {"id": 1, "name": payload["name"]}, 201
+```
 
 #### 如何调试 Flask 应用程序
 
-- Flask 内置开发服务器，而开发服务器具有调试模式
-- 调用 `<APP_NAME>.run()` 方法时，可以设置 `debug=True`
+- Flask 内置开发服务器支持调试模式，现代命令优先使用 `--debug`。
+
+```bash
+flask --app app run --debug
+```
 
 > 在部署到生产环境前应禁用调试模式
 
 #### Flask 命令
 
-- 激活虚拟环境，再使用命令
+- 激活虚拟环境后使用 Flask CLI。自定义管理命令需要项目自己注册。
 
 ```bash
 # 查看版本
 flask --version
 
-# 查看环境
-flask env
-
-# 创建应用程序的密钥
-flask secret
+# 生成 SECRET_KEY
+python -c "import secrets; print(secrets.token_hex(32))"
 
 # 查看注册的路由
-flask routes
+flask --app app routes
 
 # 启动开发服务器
-flask run
+flask --app app run --debug
 
 # 测试应用程序
-flask test
+python -m pytest
 
 # 进入命令行
-flask shell
+flask --app app shell
 ```
 
 > [Flask 官方文档](https://flask.palletsprojects.com)
+> [Flask 安装文档](https://flask.palletsprojects.com/en/stable/installation/)
+> [Flask JavaScript、fetch 和 JSON](https://flask.palletsprojects.com/en/stable/patterns/javascript/)
 
 #### Django 和 Flask（Flask 定义）
 
