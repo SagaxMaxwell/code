@@ -2,9 +2,9 @@
 date updated: 2026-07-10
 ---
 
-# 量化模型
+## 量化模型
 
-## 最小知识框架
+### 最小知识框架
 
 量化模型不是先找复杂算法，而是先建立可验证闭环：
 
@@ -16,7 +16,7 @@ date updated: 2026-07-10
 6. 风控：仓位、止损、最大回撤、行业暴露。
 7. 实盘：延迟、订单、监控、熔断。
 
-## 收益率
+### 收益率
 
 ```python
 import pandas as pd
@@ -28,7 +28,7 @@ future_return = close.shift(-1) / close - 1
 
 建模时避免未来函数：任何特征只能使用当时已经知道的数据。
 
-## 简单均线策略
+### 简单均线策略
 
 ```python
 import pandas as pd
@@ -42,7 +42,7 @@ def moving_average_signal(close: pd.Series) -> pd.Series:
 
 这不是推荐策略，只是用来理解信号、持仓和收益计算。
 
-## 机器学习建模
+### 机器学习建模
 
 基本流程：
 
@@ -60,7 +60,7 @@ def moving_average_signal(close: pd.Series) -> pd.Series:
 - 胜率和盈亏比
 - 换手率
 
-## 回测风险清单
+### 回测风险清单
 
 - 幸存者偏差：只用当前仍存在的股票会高估收益。
 - 前视偏差：用了未来才知道的数据。
@@ -68,11 +68,11 @@ def moving_average_signal(close: pd.Series) -> pd.Series:
 - 调参过拟合。
 - 忽略停牌、涨跌停和流动性。
 
-## 学习建议
+### 学习建议
 
 先用 pandas 实现最小回测器，再学习成熟框架。理解数据对齐、延迟和交易成本，比直接套模型更重要。
 
-## 参考
+### 参考
 
 - pandas 文档：<https://pandas.pydata.org/docs/>
 - scikit-learn 文档：<https://scikit-learn.org/stable/>

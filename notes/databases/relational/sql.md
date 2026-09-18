@@ -3,7 +3,7 @@ date created: 2024-07-17 13:49
 date updated: 2026-05-08 23:53
 ---
 
-# SQL 笔记
+## SQL 笔记
 
 ### 基本概念
 
@@ -146,14 +146,14 @@ GROUP BY cust_name
 ORDER BY cust_name DESC;
 ```
 
-> `GROUP BY` 搭配 `ORDER BY` 使用时，必须先分组再排序
+> `GROUP BY` 搭配 `ORDER BY` 使用时，必须先分组再排序  
 > 通常涉及聚合操作
 
 #### `HAVING`
 
 - 对汇总的 `GROUP BY` 分组结果进行过滤
 
-> `WHERE`，过滤指定的行，在 `GROUP BY` 之前
+> `WHERE`，过滤指定的行，在 `GROUP BY` 之前  
 > `HAVING`，过滤分组，在 `GROUP BY` 之后
 
 #### 子查询
@@ -186,8 +186,8 @@ DELETE FROM Customers
 WHERE cust_name = 'Kids Place';
 ```
 
-> 上述运算符可在 `WHERE` 后使用
-> `WHERE` 用于过滤记录
+> 上述运算符可在 `WHERE` 后使用  
+> `WHERE` 用于过滤记录  
 > `WHERE` 后跟着返回 `TRUE` 或 `FALSE` 的条件
 
 #### `IN` 和 `BETWEEN`
@@ -244,8 +244,8 @@ ORDER BY c.cust_name;
 | `SELF JOIN`  | 将自身连接自身，至少需要重命名一个表             |
 | `CROSS JOIN` | 交叉连接，从两个或者多个连接表中返回记录集的笛卡尔积     |
 
-> 两张表的关联字段名相同，也可以使用 `USING` 子句来代替 `ON`
-> `ON` 是表之间连接的条件，决定临时表的生成
+> 两张表的关联字段名相同，也可以使用 `USING` 子句来代替 `ON`  
+> `ON` 是表之间连接的条件，决定临时表的生成  
 > `WHERE` 是对临时表的数据进行过滤
 
 #### 隐式内连接和显式内连接
@@ -264,7 +264,7 @@ USING(cust_id)
 ORDER BY c.cust_name;
 ```
 
-> 使用 `WHERE` 实现隐式内连接
+> 使用 `WHERE` 实现隐式内连接  
 > 使用 `INNER JOIN` 实现显式内连接
 
 #### `UNION`
@@ -280,9 +280,9 @@ UNION ALL
 SELECT column_name(s) FROM table2;
 ```
 
-> `UNION ALL` 允许返回重复的值
-> `UNION` 选取不同的值
-> `UNION` 是垂直拼接，`JOIN` 是水平拼接
+> `UNION ALL` 允许返回重复的值  
+> `UNION` 选取不同的值  
+> `UNION` 是垂直拼接，`JOIN` 是水平拼接  
 > `UNION` 连接的列必须相同，`JOIN` 连接的列允许不同
 
 #### 其他关键字
@@ -334,7 +334,7 @@ WHERE SOUNDEX(col1) = SOUNDEX('apple');
 | `Time()`        | 返回一个日期时间的时间部分   |
 | `Year()`        | 返回一个日期的年份部分     |
 
-> 日期格式，`YYYY-MM-DD`
+> 日期格式，`YYYY-MM-DD`  
 > 时间格式，`HH:MM:SS`
 
 - 数值处理
@@ -608,11 +608,11 @@ TO user
 [WITH GRANT OPTION];
 ```
 
-> `GRANT` 关键字后指定一个或多个权限
-> `ON privilege_level` 确定权限应用级别
-> `user` 是要授予权限的用户，`GRANT` 语句将修改其权限，否则创建新用户
-> `IDENTIFIED BY` 允许您为用户设置新的密码
-> MySQL 支持全局 `*.*`、数据库 `database.*`、表 `database.table` 和列级别
+> `GRANT` 关键字后指定一个或多个权限  
+> `ON privilege_level` 确定权限应用级别  
+> `user` 是要授予权限的用户，`GRANT` 语句将修改其权限，否则创建新用户  
+> `IDENTIFIED BY` 允许您为用户设置新的密码  
+> MySQL 支持全局 `*.*`、数据库 `database.*`、表 `database.table` 和列级别  
 > 可选 `WITH GRANT OPTION` 子句允许授予其他用户或从其他用户中删除拥有的权限
 
 #### 创建账户

@@ -2,9 +2,9 @@
 date updated: 2026-07-10
 ---
 
-# 网络服务
+## 网络服务
 
-## socket
+### socket
 
 socket 是网络编程底层 API。先掌握 TCP 服务端和客户端，再学习超时、并发和协议设计。
 
@@ -24,7 +24,7 @@ with socket.create_connection(("example.com", 80), timeout=3) as sock:
 - 并发模型：线程、进程、asyncio、事件循环。
 - 资源关闭：`with`、`try/finally`、信号处理。
 
-## httpx
+### httpx
 
 `httpx` 支持同步和异步 API，适合现代 HTTP 客户端。
 
@@ -50,7 +50,7 @@ async def fetch(url: str) -> str:
         return response.text
 ```
 
-## Nginx
+### Nginx
 
 Nginx 常用于静态文件、反向代理、TLS 终止和负载均衡。
 
@@ -74,7 +74,7 @@ server {
 - 80 端口被占用时先查 `lsof -i :80` 或 `ss -ltnp`，不要盲目杀进程。
 - 所谓僵尸进程不能直接 kill，应该找到父进程和服务管理方式，例如 systemd unit。
 
-## Caddy
+### Caddy
 
 Caddy 默认自动 HTTPS，配置更简洁，适合中小服务和内部工具。
 
@@ -84,7 +84,7 @@ example.com {
 }
 ```
 
-## Consul 与 ZooKeeper
+### Consul 与 ZooKeeper
 
 Consul 适合服务发现、健康检查和 KV 配置；ZooKeeper 更偏一致性协调、选主和分布式锁。不能简单说谁替代谁，要看需求：
 
@@ -92,7 +92,7 @@ Consul 适合服务发现、健康检查和 KV 配置；ZooKeeper 更偏一致�
 - Kafka、HBase 等生态依赖：可能仍需要 ZooKeeper 或其替代机制。
 - 配置中心：也可评估 Nacos、etcd、云厂商配置服务。
 
-## Paramiko
+### Paramiko
 
 Paramiko 用于 SSH 自动化，适合执行远程命令、上传下载文件。生产环境更推荐最小权限账户、密钥登录和审计日志。
 
@@ -108,7 +108,7 @@ print(stdout.read().decode())
 client.close()
 ```
 
-## psutil
+### psutil
 
 psutil 用于进程、CPU、内存、磁盘和网络监控。
 
@@ -119,10 +119,9 @@ print(psutil.cpu_percent(interval=1))
 print(psutil.virtual_memory().percent)
 ```
 
-## 参考
+### 参考
 
 - Python socket：<https://docs.python.org/3/library/socket.html>
 - HTTPX 文档：<https://www.python-httpx.org/>
 - Nginx proxy 文档：<https://nginx.org/en/docs/http/ngx_http_proxy_module.html>
 - Caddy 文档：<https://caddyserver.com/docs/>
-

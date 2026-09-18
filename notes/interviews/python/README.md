@@ -3,7 +3,7 @@ date created: 2024-07-01 13:13
 date updated: 2026-07-24
 ---
 
-# Python 面试笔记
+## Python 面试笔记
 
 - [[01-basics|基础语法与语言特性]]
 - [[02-functions-oop|函数、面向对象与数据模型]]

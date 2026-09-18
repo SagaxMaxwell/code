@@ -2,9 +2,9 @@
 date updated: 2026-07-26
 ---
 
-# 爬虫与网页自动化
+## 爬虫与网页自动化
 
-## 选择工具
+### 选择工具
 
 | 工具 | 适合场景 |
 | --- | --- |
@@ -15,7 +15,7 @@ date updated: 2026-07-26
 
 优先判断页面数据是否来自接口。能直接请求接口就不要开浏览器；只有 JS 渲染、登录态复杂或需要真实用户行为时才使用 Playwright/Selenium。
 
-## Scrapy 核心对象
+### Scrapy 核心对象
 
 - Spider：定义入口 URL、解析逻辑和后续请求。
 - Selector：用 CSS/XPath 取数据。
@@ -43,7 +43,7 @@ class QuotesSpider(scrapy.Spider):
             yield response.follow(next_page, self.parse)
 ```
 
-## Playwright
+### Playwright
 
 完整教程见 [[playwright|Playwright 教程]]。这里保留最小自动化示例：
 
@@ -69,7 +69,7 @@ with sync_playwright() as p:
 4. `get_by_test_id`
 5. CSS/XPath
 
-## Selenium
+### Selenium
 
 Selenium 仍然有价值，尤其是企业已有自动化项目。新项目若没有历史包袱，E2E 通常优先评估 Playwright。
 
@@ -84,14 +84,14 @@ print(heading.text)
 driver.quit()
 ```
 
-## 合规与稳定性
+### 合规与稳定性
 
 - 遵守网站条款、robots 协议和访问频率限制。
 - 对登录态、验证码、个人数据保持谨慎，不绕过访问控制。
 - 抓取任务必须有重试、超时、限速、断点续跑和日志。
 - 数据保存前做 schema 校验，避免脏数据进入后续流程。
 
-## 参考
+### 参考
 
 - Scrapy 官方文档：<https://docs.scrapy.org/en/latest/>
 - Playwright Python 文档：<https://playwright.dev/python/docs/intro>

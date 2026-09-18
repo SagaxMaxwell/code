@@ -2,15 +2,15 @@
 date updated: 2026-07-26
 ---
 
-# Playwright 教程
+## Playwright 教程
 
-## 适合场景
+### 适合场景
 
 Playwright 是现代浏览器自动化工具，适合 E2E 测试、跨浏览器验证、动态页面抓取、登录流程验证和关键用户路径回归测试。它能驱动 Chromium、Firefox、WebKit，并且默认带自动等待机制。
 
 优先用 Playwright 做真实浏览器行为验证。静态页面或直接暴露数据接口的场景，优先使用 `httpx`、Scrapy 或接口测试，避免为简单抓取启动浏览器。
 
-## 安装
+### 安装
 
 使用 pytest 插件：
 
@@ -33,7 +33,7 @@ uv run pytest --browser chromium --headed
 uv run pytest --browser chromium --browser firefox
 ```
 
-## 第一个测试
+### 第一个测试
 
 `pytest-playwright` 会提供 `page`、`browser`、`context` 等 fixture。
 
@@ -53,7 +53,7 @@ def test_example_domain(page: Page) -> None:
 
 Playwright 会自动等待元素出现、可见、可点击或断言成立。测试里少写 `sleep()`，优先使用 locator 和 `expect()`。
 
-## Locator 优先级
+### Locator 优先级
 
 定位要尽量接近用户看到和操作的语义。
 
@@ -75,7 +75,7 @@ expect(page.get_by_text("Order created")).to_be_visible()
 
 稳定的 E2E 测试依赖稳定 locator。CSS 类名和 DOM 层级经常因为样式重构变化，不适合做核心定位。
 
-## 录制与调试
+### 录制与调试
 
 录制用户操作：
 
@@ -103,7 +103,7 @@ uv run pytest --screenshot only-on-failure --video retain-on-failure --tracing r
 
 `codegen` 适合生成起点，不适合直接把录制代码当最终测试。录制完成后要整理为清晰的步骤、稳定的 locator 和明确断言。
 
-## Page Object
+### Page Object
 
 页面流程复杂时，用 Page Object 封装页面操作，让测试函数只表达业务路径。
 
@@ -137,7 +137,7 @@ def test_login(page: Page) -> None:
 
 Page Object 不要写成万能工具类。一个类对应一个页面或一个稳定流程即可。
 
-## 登录状态复用
+### 登录状态复用
 
 反复登录会拖慢测试，也会让用例依赖登录页稳定性。可以先保存登录状态，再在后续上下文里复用。
 
@@ -170,7 +170,7 @@ with sync_playwright() as p:
 
 项目里通常会把 `storage_state` 接入 pytest 配置或自定义 fixture。敏感账号和 token 不要提交到仓库。
 
-## 网络控制
+### 网络控制
 
 Playwright 可以等待请求、拦截接口、模拟响应，适合把前端流程和后端不稳定因素隔离开。
 
@@ -194,7 +194,7 @@ def test_empty_recommendations(page: Page) -> None:
 
 不要把所有接口都 mock 掉。E2E 的价值在于覆盖真实集成路径；mock 更适合隔离少量不稳定或昂贵依赖。
 
-## 动态页面抓取
+### 动态页面抓取
 
 抓取动态页面时的基本流程：
 
@@ -220,7 +220,7 @@ print(titles)
 - 数据 schema 校验。
 - 对网站条款、robots 和个人数据边界的检查。
 
-## 稳定性清单
+### 稳定性清单
 
 - 每个测试只验证一个关键业务路径。
 - 优先用 role、label、text、test id，少用 CSS/XPath。
@@ -230,7 +230,7 @@ print(titles)
 - CI 中保存失败截图、视频和 trace。
 - E2E 用例数量控制在关键路径，更多规则放单元测试和 API 测试。
 
-## 参考
+### 参考
 
 - Playwright Python Intro：<https://playwright.dev/python/docs/intro>
 - Playwright Locators：<https://playwright.dev/python/docs/locators>

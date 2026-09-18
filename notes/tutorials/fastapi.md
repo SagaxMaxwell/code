@@ -2,15 +2,15 @@
 date updated: 2026-07-26
 ---
 
-# FastAPI 教程
+## FastAPI 教程
 
-## 适合场景
+### 适合场景
 
 FastAPI 适合写类型清晰、接口契约明确的 Python HTTP API。它把 Starlette 的 ASGI 能力、Pydantic 的数据校验和 OpenAPI 文档生成组合在一起，适合后端服务、模型推理接口、内部平台 API 和前后端分离项目。
 
 不建议把所有业务逻辑都写进路由函数。路由层只处理 HTTP 边界，真正的业务规则放到 service、domain 或 repository 层，便于 CLI、定时任务和测试复用。
 
-## 安装与启动
+### 安装与启动
 
 使用 `uv`：
 
@@ -28,7 +28,7 @@ uv run uvicorn app.main:app --reload
 
 `fastapi dev` 适合本地开发，`uvicorn app.main:app --reload` 是更通用的启动方式。生产环境不要开 `--reload`。
 
-## 最小应用
+### 最小应用
 
 ```python
 # app/main.py
@@ -49,7 +49,7 @@ def health_check() -> dict[str, str]:
 - ReDoc：`http://127.0.0.1:8000/redoc`
 - OpenAPI JSON：`http://127.0.0.1:8000/openapi.json`
 
-## 请求参数
+### 请求参数
 
 路径参数用于定位资源，查询参数用于筛选、分页和开关类选项，请求体用于提交结构化数据。
 
@@ -103,7 +103,7 @@ def create_task(payload: TaskCreate) -> TaskRead:
 - `response_model` 控制返回结构，不要直接暴露 ORM 对象。
 - Pydantic v2 中常用 `model_dump()` 把模型转成字典。
 
-## 状态码与异常
+### 状态码与异常
 
 业务错误要变成稳定的 HTTP 状态码和错误结构，不要直接返回字符串。
 
@@ -132,7 +132,7 @@ def read_task(task_id: int) -> TaskRead:
 - 未登录用 `401`，无权限用 `403`。
 - 创建成功用 `201`，删除成功可用 `204`。
 
-## 依赖注入
+### 依赖注入
 
 依赖注入适合放认证、数据库会话、配置读取、分页参数和可替换的外部客户端。
 
@@ -170,7 +170,7 @@ def read_me(user: Annotated[CurrentUser, Depends(get_current_user)]) -> CurrentU
 - `get_current_user()`：解析认证信息。
 - `require_admin()`：检查权限。
 
-## 路由拆分
+### 路由拆分
 
 接口变多后用 `APIRouter` 拆分模块。
 
@@ -213,7 +213,7 @@ tests/
 
 规模继续变大时，可以按业务域拆成 `app/tasks/router.py`、`app/tasks/schemas.py`、`app/tasks/service.py`。
 
-## 同步与异步
+### 同步与异步
 
 FastAPI 支持 `def` 和 `async def`：
 
@@ -233,7 +233,7 @@ async def call_external() -> dict[str, object]:
     return {"status_code": response.status_code}
 ```
 
-## 测试
+### 测试
 
 FastAPI 可以用 `TestClient` 直接测试 ASGI 应用，不需要真的启动端口。
 
@@ -270,7 +270,7 @@ def test_create_task() -> None:
 - 依赖注入是否能替换外部服务和数据库。
 - 错误响应格式是否稳定。
 
-## 常见问题
+### 常见问题
 
 - 把 ORM 模型当 API schema：会把数据库结构泄漏到接口层。
 - 返回未校验的字典：接口文档和真实返回容易漂移。
@@ -278,7 +278,7 @@ def test_create_task() -> None:
 - 在请求里跑长任务：请求超时后状态难追踪。
 - 混用同步和异步客户端：容易造成连接泄漏或事件循环阻塞。
 
-## 参考
+### 参考
 
 - FastAPI First Steps：<https://fastapi.tiangolo.com/tutorial/first-steps/>
 - FastAPI Request Body：<https://fastapi.tiangolo.com/tutorial/body/>
