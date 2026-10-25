@@ -12,8 +12,8 @@ from unittest import IsolatedAsyncioTestCase, TestCase
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 NOTEBOOK_ROOTS = [
-    SRC / "python_notes" / "tutorials",
-    SRC / "python_notes" / "exercises",
+    SRC / "learnpy" / "guides",
+    SRC / "learnpy" / "practice",
 ]
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)(?:\s+#+\s*)?$")
 FENCE_RE = re.compile(r"^\s*(```+|~~~+)")
@@ -45,16 +45,14 @@ class PackageStructureTest(TestCase):
 
     def test_package_imports(self) -> None:
         """核心包可以通过绝对路径导入。"""
-        package = importlib.import_module("python_notes")
+        package = importlib.import_module("learnpy")
 
-        self.assertEqual(
-            package.__all__, ["exercises", "resources", "task_queues", "tutorials"]
-        )
+        self.assertEqual(package.__all__, ["practice", "assets", "workers", "guides"])
 
     def test_all_only_defined_in_init_files(self) -> None:
         """普通模块不定义 __all__。"""
         offenders: list[Path] = []
-        for path in (SRC / "python_notes").rglob("*.py"):
+        for path in (SRC / "learnpy").rglob("*.py"):
             tree = ast.parse(path.read_text(), filename=str(path))
             has_all = any(
                 isinstance(node, ast.Assign)
@@ -71,12 +69,8 @@ class PackageStructureTest(TestCase):
 
     def test_task_functions_without_broker(self) -> None:
         """任务函数可直接测试。"""
-        celery_work = importlib.import_module(
-            "python_notes.task_queues.celery.tasks"
-        )
-        dramatiq_work = importlib.import_module(
-            "python_notes.task_queues.dramatiq.tasks"
-        )
+        celery_work = importlib.import_module("learnpy.workers.celery.tasks")
+        dramatiq_work = importlib.import_module("learnpy.workers.dramatiq.tasks")
 
         self.assertEqual(celery_work.add.run(2, 3), 5)
         self.assertEqual(celery_work.multiply.run(2, 3), 6)
@@ -90,7 +84,7 @@ class ArqTaskTest(IsolatedAsyncioTestCase):
 
     async def test_arq_tasks_without_worker(self) -> None:
         """ARQ 任务可直接执行。"""
-        arq_work = importlib.import_module("python_notes.task_queues.arq.tasks")
+        arq_work = importlib.import_module("learnpy.workers.arq.tasks")
         ctx = {"processed_jobs": 0, "job_try": 3}
 
         self.assertEqual(await arq_work.add(ctx, 3, 7), 10)

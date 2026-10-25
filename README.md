@@ -1,25 +1,13 @@
-# Python Notes
+# Python 项目
 
-Python 教程、练习、资源、任务队列示例和个人知识库。
+教程、练习、资源和任务队列示例。
 
-## 目录
+- `src/learnpy/`：可安装包、教程与练习
+- `../notes/`：独立的系统、数据库、面试和实践笔记
 
-- [[src/python_notes/README|src/python_notes]]: 可安装 Python 包，包含教程、练习、资源和可运行示例。
-- [[src/python_notes/tutorials/README|src/python_notes/tutorials]]: 基础语法、数据分析、工具、并发、Web、算法和机器学习教程。
-- [[src/python_notes/exercises/README|src/python_notes/exercises]]: 配套练习、测评和综合项目。
-- [[src/python_notes/task_queues/README|src/python_notes/task_queues]]: Celery、Dramatiq 和 ARQ 任务队列示例。
-- [[src/python_notes/resources/README|src/python_notes/resources]]: notebook 图片和数据集。
-- [[notes/README|notes]]: 系统配置、数据库、面试笔记和补齐教程。
-- [[tests/test_structure.py|tests]]: 包结构、notebook 语法和示例行为检查。
+维护约定：一个主题对应一个 notebook；可运行代码放在包目录，静态文件放在 `assets/`。
 
-## 知识库入口
-
-- [[notes/learning-roadmap|learning-roadmap]]: 从原待办清单整理出的学习路线。
-- [[notes/tutorials/README|notes/tutorials]]: pytest、Web、爬虫、网络服务、Pydantic、UDS、量化模型等补齐教程。
-- [[notes/interviews/README|notes/interviews]]: Python、后端、计算机基础和软件工程面试笔记。
-
-## 维护规则
-
-- 每个一级主题优先对应一个独立目录，目录内用 `README.md` 做模块入口。
-- 可运行代码放在包模块中，讲解和练习放在 notebook 或 Markdown 教程中。
-- 只有纯索引文件和同名目录重复时才合并；不同学习场景的教程不强行合并。
+```bash
+ruff check src tests
+python -m unittest discover
+```

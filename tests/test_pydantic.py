@@ -10,24 +10,22 @@ from unittest import TestCase
 from pydantic import ValidationError
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTEBOOK = (
-    ROOT
-    / "src"
-    / "python_notes"
-    / "tutorials"
-    / "tools"
-    / "pydantic.ipynb"
-)
+NOTEBOOK = ROOT / "src" / "learnpy" / "guides" / "tools.ipynb"
 
 
 def load_notebook_namespace() -> dict[str, object]:
     """执行 Pydantic notebook。"""
     data = json.loads(NOTEBOOK.read_text())
     namespace: dict[str, object] = {"__name__": "__pydantic_tools_notebook__"}
+    in_pydantic = False
     for index, cell in enumerate(data["cells"]):
+        source = "".join(cell.get("source", []))
+        if cell.get("cell_type") == "markdown" and source.startswith("## "):
+            in_pydantic = source.splitlines()[0] == "## Pydantic 数据校验工具"
+        if not in_pydantic:
+            continue
         if cell.get("cell_type") != "code":
             continue
-        source = "".join(cell.get("source", []))
         exec(
             compile(source, f"{NOTEBOOK}:{index}", "exec", dont_inherit=True), namespace
         )
