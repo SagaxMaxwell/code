@@ -105,6 +105,27 @@ class NotebookSyntaxTest(TestCase):
 
         self.assertEqual(failures, [])
 
+    def test_notebooks_have_no_empty_cells(self) -> None:
+        """Notebook 不包含空单元或只有 Markdown 符号的单元。"""
+        failures: list[str] = []
+        for path in iter_notebooks():
+            data = json.loads(path.read_text())
+            for index, cell in enumerate(data.get("cells", []), 1):
+                source = "".join(cell.get("source", [])).strip()
+                if not source:
+                    failures.append(
+                        f"{path.relative_to(ROOT)} cell {index}: empty cell"
+                    )
+                elif cell.get("cell_type") == "markdown" and not re.search(
+                    r"[A-Za-z0-9\u4e00-\u9fff]", source
+                ):
+                    failures.append(
+                        f"{path.relative_to(ROOT)} cell {index}: "
+                        "markdown has no content"
+                    )
+
+        self.assertEqual(failures, [])
+
     def test_markdown_cells_have_consistent_structure(self) -> None:
         """Markdown 单元有一致的标题层级和基础格式。"""
         failures: list[str] = []
