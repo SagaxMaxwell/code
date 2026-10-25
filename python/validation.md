@@ -67,7 +67,7 @@ class Price(BaseModel):
         return f"{value:.2f}"
 ```
 
-### msgspec
+## msgspec
 
 `msgspec` 适合高性能 JSON/MessagePack 编解码，尤其是大量结构化数据。它比 Pydantic 更偏序列化和数据交换，Pydantic 更偏边界校验与错误解释。
 
@@ -87,7 +87,7 @@ event = msgspec.json.decode(
 )
 ```
 
-### 文件解析
+## 文件解析
 
 | 工具 | 用法 |
 | --- | --- |
@@ -99,7 +99,7 @@ event = msgspec.json.decode(
 
 配置读取建议顺序：默认值、配置文件、环境变量、命令行参数。密钥不要提交进仓库。
 
-### 参考
+## 参考
 
 - Pydantic 官方文档：<https://docs.pydantic.dev/latest/>
 - msgspec 官方文档：<https://jcristharif.com/msgspec/>

@@ -33,7 +33,7 @@ def close_if_needed(value: object) -> None:
         value.close()
 ```
 
-### 装饰器
+## 装饰器
 
 装饰器本质是接收函数并返回新函数。实际项目必须保留 `__name__`、docstring 和签名信息。
 
@@ -59,7 +59,7 @@ def timer(func: Callable[P, R]) -> Callable[P, R]:
     return wrapper
 ```
 
-### datetime
+## datetime
 
 统一使用带时区的时间。存储用 UTC，展示时再转换到用户时区。
 
@@ -74,7 +74,7 @@ text = shanghai.strftime("%Y-%m-%d %H:%M:%S %Z")
 parsed = datetime.strptime("2026-07-10", "%Y-%m-%d").replace(tzinfo=UTC)
 ```
 
-### 压缩与解压
+## 压缩与解压
 
 常用 Linux 命令：
 
@@ -87,7 +87,7 @@ unzip notes.zip
 
 Python 中可用 `zipfile` 和 `tarfile`，脚本里优先用标准库而不是拼 shell。
 
-### 队列
+## 队列
 
 ```python
 from queue import LifoQueue, PriorityQueue, Queue
@@ -107,7 +107,7 @@ priority.put((1, "high"))
 - `LifoQueue`：后进先出，适合栈式任务。
 - `PriorityQueue`：按优先级取任务。
 
-### 不可变数据结构
+## 不可变数据结构
 
 标准库里先考虑 `tuple`、`frozenset`、`dataclasses.dataclass(frozen=True)`。需要高性能不可变映射时再使用 `immutables.Map`。
 
@@ -121,7 +121,7 @@ class Point:
     y: int
 ```
 
-### 迭代工具
+## 迭代工具
 
 `itertools` 适合无限序列、组合、分组和惰性管道。
 
@@ -135,7 +135,7 @@ pairs = list(pairwise(["a", "b", "c"]))
 
 `more-itertools` 是第三方增强包，适合分块、窗口、去重和更复杂的迭代配方。
 
-### 资源关闭
+## 资源关闭
 
 简单资源用 `with`，多个动态资源用 `ExitStack`，异步资源用 `AsyncExitStack`。
 
@@ -151,11 +151,11 @@ with ExitStack() as stack:
 
 `atexit` 只适合兜底清理，不要依赖它做关键业务提交。
 
-### 文件锁
+## 文件锁
 
 跨进程写同一文件时需要文件锁。优先选成熟库，例如 `filelock` 或平台库；只在清楚平台差异时直接用 `fcntl`/`msvcrt`。
 
-### bit、uuid、crc
+## bit、uuid、crc
 
 - `bitarray`：紧凑存储大量布尔位，适合 bitmap、布隆过滤器等。
 - `uuid6`：生成时间有序 UUID，适合需要索引局部性的 ID。
@@ -167,7 +167,7 @@ from binascii import crc32
 checksum = crc32(b"payload")
 ```
 
-### 参考
+## 参考
 
 - Python typing：<https://docs.python.org/3/library/typing.html>
 - Python contextlib：<https://docs.python.org/3/library/contextlib.html>

@@ -4,8 +4,6 @@ date updated: 2026-07-10
 
 # 汽车 UDS
 
-## 基本概念
-
 UDS（Unified Diagnostic Services）是汽车 ECU 诊断服务体系，常见于刷写、读故障码、读写数据标识、例程控制和安全访问。它通常跑在 CAN、CAN FD、DoIP 等传输之上。
 
 学习顺序：
@@ -16,7 +14,7 @@ UDS（Unified Diagnostic Services）是汽车 ECU 诊断服务体系，常见于
 4. 安全访问、会话控制、例程控制。
 5. 刷写流程和日志分析。
 
-### 常见服务
+## 常见服务
 
 | SID | 服务 | 用途 |
 | --- | --- | --- |
@@ -31,14 +29,14 @@ UDS（Unified Diagnostic Services）是汽车 ECU 诊断服务体系，常见于
 | `0x37` | RequestTransferExit | 结束传输 |
 | `0x3E` | TesterPresent | 保持诊断会话 |
 
-### Python 工具链
+## Python 工具链
 
 - `python-can`：CAN 总线访问。
 - `can-isotp`：ISO-TP 传输。
 - `udsoncan`：UDS 客户端。
 - 厂商或项目内的 `libautomotive`：通常封装诊断脚本、刷写流程和日志工具，先看它对以上三层的抽象方式。
 
-### 最小流程
+## 最小流程
 
 ```text
 连接 CAN/DoIP
@@ -50,7 +48,7 @@ UDS（Unified Diagnostic Services）是汽车 ECU 诊断服务体系，常见于
 关闭连接
 ```
 
-### 调试重点
+## 调试重点
 
 - 请求和响应的 CAN ID 是否匹配。
 - 是否需要功能寻址或物理寻址。
@@ -58,7 +56,7 @@ UDS（Unified Diagnostic Services）是汽车 ECU 诊断服务体系，常见于
 - 会话是否超时，是否需要周期性 `TesterPresent`。
 - 安全访问算法和计数器是否被锁定。
 
-### 参考
+## 参考
 
 - udsoncan 文档：<https://udsoncan.readthedocs.io/en/latest/>
 - python-can 文档：<https://python-can.readthedocs.io/en/stable/>

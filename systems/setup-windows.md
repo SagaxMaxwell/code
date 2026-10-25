@@ -5,15 +5,14 @@ date updated: 2026-08-05 00:00
 
 # Windows 配置
 
-## Windows 配置笔记
 
 > Winget 管系统自带包管理和安装器类应用；Scoop 管便携应用、开发工具、字体和终端环境。
 
 ---
 
-### Winget
+## Winget
 
-#### 管理
+### 管理
 
 ```powershell
 winget source update
@@ -24,9 +23,9 @@ winget upgrade --all --include-unknown
 
 ---
 
-### Scoop
+## Scoop
 
-#### 基础配置
+### 基础配置
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -42,20 +41,20 @@ scoop bucket add nonportable
 scoop checkup
 ```
 
-#### 网络工具
+### 网络工具
 
 ```powershell
 scoop install sing-box aria2
 scoop config aria2-warning-enabled false
 ```
 
-#### 系统调试工具（可选）
+### 系统调试工具（可选）
 
 ```powershell
 scoop install vivetool
 ```
 
-#### 桌面应用
+### 桌面应用
 
 ```powershell
 scoop install dropbox-np obsidian notion vscode zed notepad3 everything draw.io sharex wpsoffice googlechrome
@@ -63,7 +62,7 @@ scoop install dropbox-np obsidian notion vscode zed notepad3 everything draw.io 
 
 > `dropbox-np` 来自 nonportable bucket，可能触发 UAC 或安装到 Scoop 目录外。
 
-#### 游戏工具
+### 游戏工具
 
 ```powershell
 scoop install steam epic-games-launcher
@@ -71,7 +70,7 @@ scoop install steam epic-games-launcher
 
 > Linux/Steam 游戏环境配置见 [[setup-linux|DNF + Flatpak + Steam]]
 
-#### ROG 轻量控制工具（可选）
+### ROG 轻量控制工具（可选）
 
 ```powershell
 scoop install windowsdesktop-runtime g-helper
@@ -79,19 +78,19 @@ scoop install windowsdesktop-runtime g-helper
 
 > [G-Helper](https://github.com/seerge/g-helper) 是轻量 Armoury Crate 替代方案；需要 .NET Desktop Runtime 和 ASUS System Control Interface。ASUS System Control Interface 通常出厂已带，缺失或损坏时再从 ASUS 支持页安装。
 
-#### 多媒体和图形工具
+### 多媒体和图形工具
 
 ```powershell
 scoop install obs-studio mpv ffmpeg imagemagick resvg poppler-utils
 ```
 
-#### 开发工具
+### 开发工具
 
 ```powershell
 scoop install rustup uv llvm
 ```
 
-#### Nerd Fonts 和常用字体
+### Nerd Fonts 和常用字体
 
 ```powershell
 scoop install IBMPlexMono IBMPlexMono-NF IBMPlexMono-NF-Propo IBMPlexMono-NF-Mono
@@ -103,7 +102,7 @@ scoop install Source-Han-Serif-SC Source-Han-Serif-TC Source-Han-Serif-HC Source
 scoop install Source-Han-Mono-SC LXGWWenKai
 ```
 
-#### PowerShell 终端配置
+### PowerShell 终端配置
 
 ```powershell
 scoop install pwsh posh-git terminal-icons oh-my-posh
@@ -127,7 +126,7 @@ Import-Module Terminal-Icons
 . $PROFILE
 ```
 
-#### WezTerm 配置
+### WezTerm 配置
 
 ```powershell
 scoop install wezterm
@@ -151,7 +150,7 @@ config.default_prog = { "pwsh.exe" }
 return config
 ```
 
-#### Helix 配置
+### Helix 配置
 
 ```powershell
 scoop install helix
@@ -236,7 +235,7 @@ enable = true
 supersede-menu = false
 ```
 
-#### 高级命令
+### 高级命令
 
 ```powershell
 scoop install gsudo           # sudo
@@ -261,7 +260,7 @@ scoop install yazi
 
 > Windows 11 24H2 自带 `sudo`，需要更完整的提权体验时用 `gsudo`。
 
-#### 管理
+### 管理
 
 ```powershell
 scoop list

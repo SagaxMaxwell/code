@@ -5,9 +5,8 @@ date updated: 2026-05-08 23:53
 
 # Python 标准库
 
-## Python Standard Library Io And Regex
 
-### Python 中与文件相关的库有哪些？
+## Python 中与文件相关的库有哪些？
 
 - `os`、`os.path` 和 `shutil`
 - `os` 和 `os.path`，模块包含访问文件系统的功能
@@ -32,7 +31,7 @@ shutil.rmtree(directory_path)
 os.remove(file_path)
 ```
 
-### 如何用 Python 语言发送电子邮件？
+## 如何用 Python 语言发送电子邮件？
 
 - Python 提供了 `smtplib` 和 `email` 模块，将这些模块导入到创建的邮件脚本中，并通过对用户进行身份验证来发送邮件
 - 它有一个方法 `SMTP(smtp-server, port)`，它需要两个参数来建立 SMTP 连接
@@ -92,7 +91,7 @@ with smtplib.SMTP(smtp_server, 587) as server:
     server.sendmail(sender, receiver, msg.as_string())
 ```
 
-### 如何在 Python 中生成随机数？
+## 如何在 Python 中生成随机数？
 
 - 使用随机模块 `random`
 
@@ -121,7 +120,7 @@ $$
 \sigma = \sqrt{\frac{\sum{(x_i - \mu)^2}}{N}}​​
 $$
 
-### 如何使用 `random` 模块生成随机数、实现随机乱序和随机抽样？
+## 如何使用 `random` 模块生成随机数、实现随机乱序和随机抽样？
 
 - `random.shuffle(x)` 函数可以实现对序列 `x` 的原地随机乱序
 - `random.choice(seq)` 函数可以从非空序列中取出一个随机元素
@@ -130,23 +129,23 @@ $$
 
 > `random` 模块提供的函数除了生成均匀分布的随机数外，还可以生成其他分布的随机数，例如 `random.gauss(mu, sigma)` 函数可以生成高斯分布（正态分布）的随机数
 
-### PYTHONPATH 是什么？
+## PYTHONPATH 是什么？
 
 - `PYTHONPATH` 是导入模块时使用的环境变量
 - 每当导入一个模块时，还会查找 `PYTHONPATH` 以检查各个目录中是否存在导入的模块
 - 解释器使用它来确定要加载哪个模块
 
-### Python 中的 pickling 和 unpickling 是什么？
+## Python 中的 pickling 和 unpickling 是什么？
 
 - Python pickle 被定义为一个模块，它接受任何 Python 对象并将其转换为字符串表示。它使用 `dump` 函数将 Python 对象转储到一个文件中；这个过程被称为 `pickling`
 - 从存储的字符串表示中检索原始的 Python 对象的过程被称为 `unpickling`
 
-### Python 中的模块是什么？
+## Python 中的模块是什么？
 
 - 模块是包含 Python 代码的文件
 - 此代码可以是函数、类、变量
 
-### Python 中常用的内置模块
+## Python 中常用的内置模块
 
 - `os`
 - `system`
@@ -155,7 +154,7 @@ $$
 - `JSON`
 - `math`
 
-### Python 中常用第三方库
+## Python 中常用第三方库
 
 - `pandas`
 - `numpy`
@@ -168,20 +167,20 @@ $$
 
 > 企业会自己构建库
 
-### Python 中有哪些环境变量，有什么用？
+## Python 中有哪些环境变量，有什么用？
 
 - `PYTHONPATH`，与 PATH 变量相同，Python 解释器使用它来搜索模块文件
 - `PYTHONHOME`，这是一个额外的 PATH 变量来搜索模块
 - `PYTHONSTARTUP`，它存储包含 Python 代码的初始化脚本的路径，每次 Python 解释器启动时它都会运行
 - `PYTHONCASEOK`，在 Windows 中，它使 Python 在 `import` 语句中找到第一个不区分大小写的匹配项，需要将其设置为激活
 
-### 如何在 Python 中将字符串转换/更改为 int 或 long ？
+## 如何在 Python 中将字符串转换/更改为 int 或 long ？
 
 - Python 3 中只有 `int`，不再区分 `int` 和 `long`。
 - `int(x, base=10)` 可将字符串按指定进制转换为整数，例如 `int("1010", 2)` 返回 `10`。
 - 转换失败会抛出 `ValueError`，实际开发中要在用户输入场景做异常处理。
 
-### 如何在 Python 中创建套接字？
+## 如何在 Python 中创建套接字？
 
 - 使用 `socket.socket()` 创建套接字，`AF_INET` 表示 IPv4，`SOCK_STREAM` 表示 TCP。
 
@@ -191,13 +190,13 @@ import socket
 simple_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ```
 
-### 在 Python 中为什么使用 `__init__.py` 模块？
+## 在 Python 中为什么使用 `__init__.py` 模块？
 
 - 它通过排除具有通用名称 (如字符串) 的目录，使 Python 将目录解释为包
 - 它授予程序员控制权来决定哪个目录是包，哪个不是包
 - 但是，`__init__.py` 也可以是一个空文件。然后它可以帮助执行包的初始化代码或设置 `__all__` 变量。
 
-### 如何在 Python 中运行带有参数的子进程或外部程序？
+## 如何在 Python 中运行带有参数的子进程或外部程序？
 
 - `os`，`subprocess`，`threading`，`multiprocessing`
 - `subprocess`，现代模块
@@ -210,7 +209,7 @@ simple_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 - `pty`，伪终端
 - `threading` 和 `multiprocessing`，如果你需要并行运行多个子进程，可以使用这些模块来创建线程或进程
 
-### Python 正则表达式语法
+## Python 正则表达式语法
 
 | 字符类      | 描述                                 |
 | -------- | ---------------------------------- |
@@ -259,7 +258,7 @@ simple_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 | `(?=exp)`  | 正向先行断言，匹配 `exp` 前面的位置     |
 | `(?! Exp)` | 负向先行断言，匹配后面跟的不是 `exp` 的位置 |
 
-### 贪婪匹配与非贪婪匹配
+## 贪婪匹配与非贪婪匹配
 
 | 贪婪量词     | 非贪婪量词     | 描述                                      |
 | -------- | --------- | --------------------------------------- |
@@ -268,7 +267,7 @@ simple_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 | `?`      | `??`      | 匹配前面的元素零次或一次，非贪婪版本会尽可能少地匹配              |
 | `{m, n}` | `{m, n}?` | 匹配前面的元素至少 `m` 次但不超过 `n` 次，非贪婪版本会尽可能少地匹配 |
 
-### 使用 Python 代码实现遍历一个文件夹的操作？
+## 使用 Python 代码实现遍历一个文件夹的操作？
 
 - `os.walk(path)`
 - `os.listdir(path)`
@@ -292,12 +291,12 @@ for root, dir_names, file_names in os.walk("/Users/Hao/Downloads"):
         print(os.path.join(root, file_name))
 ```
 
-### Python 中如何实现字符串替换操作？
+## Python 中如何实现字符串替换操作？
 
 - `re.compile().sub()`
 - `str.replace()`
 
-### 如何读取大于内存的文件？
+## 如何读取大于内存的文件？
 
 - 分片
 - 分段读取
