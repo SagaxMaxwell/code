@@ -10,7 +10,7 @@ from unittest import TestCase
 from pydantic import ValidationError
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTEBOOK = ROOT / "src" / "learnpy" / "guides" / "validation.ipynb"
+NOTEBOOK = ROOT / "python" / "validation-lab.ipynb"
 
 
 def load_notebook_namespace() -> dict[str, object]:

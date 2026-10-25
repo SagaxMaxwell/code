@@ -1,13 +1,25 @@
-# Python 项目
+# Learning
 
-教程、练习、资源和任务队列示例。
+按主题组织的知识笔记、可运行实验和练习。
 
-- `src/learnpy/`：可安装包、教程与练习
-- `../notes/`：独立的系统、数据库、面试和实践笔记
+- `.md`：适合阅读、检索和长期维护的知识
+- `.ipynb`：需要运行并观察结果的实验
+- `.py`：仅用于自动检查，或必须被其他程序导入的实现
 
-维护约定：一个主题对应一个 notebook；可运行代码放在包目录，静态文件放在 `assets/`。
+## 主题
+
+- [[python/README|Python]]
+- [[algorithms/README|算法与练习]]
+- [[data/README|数据与数据库]]
+- [[testing/README|测试与汽车诊断]]
+- [[web/README|Web 开发与自动化]]
+- [[systems/README|系统与网络]]
+- [[engineering/README|软件工程]]
+- [[roadmap|学习路线]]
+
+同一主题的笔记与实验放在同一目录；没有运行需求时，不创建 Notebook。
 
 ```bash
-ruff check src tests
-python -m unittest discover
+ruff check .
+python -m unittest discover -s tests
 ```
