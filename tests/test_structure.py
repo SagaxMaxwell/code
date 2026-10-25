@@ -15,6 +15,17 @@ NOTEBOOK_ROOTS = [
     SRC / "learnpy" / "guides",
     SRC / "learnpy" / "practice",
 ]
+NOTEBOOK_METADATA = {
+    "kernelspec": {
+        "display_name": "Python 3",
+        "language": "python",
+        "name": "python3",
+    },
+    "language_info": {
+        "name": "python",
+        "pygments_lexer": "ipython3",
+    },
+}
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)(?:\s+#+\s*)?$")
 FENCE_RE = re.compile(r"^\s*(```+|~~~+)")
 
@@ -104,6 +115,28 @@ class NotebookSyntaxTest(TestCase):
             data = json.loads(path.read_text())
             self.assertEqual(data["nbformat"], 4)
             self.assertIn("cells", data)
+
+    def test_notebooks_have_consistent_metadata(self) -> None:
+        """Notebook 使用统一内核信息和完整单元 ID。"""
+        failures: list[str] = []
+        for path in iter_notebooks():
+            data = json.loads(path.read_text())
+            relative_path = path.relative_to(ROOT)
+            if data.get("metadata") != NOTEBOOK_METADATA:
+                failures.append(f"{relative_path}: inconsistent notebook metadata")
+
+            cell_ids: list[str] = []
+            for index, cell in enumerate(data.get("cells", []), 1):
+                cell_id = cell.get("id")
+                if not cell_id:
+                    failures.append(f"{relative_path} cell {index}: missing cell ID")
+                    continue
+                cell_ids.append(cell_id)
+
+            if len(cell_ids) != len(set(cell_ids)):
+                failures.append(f"{relative_path}: duplicate cell IDs")
+
+        self.assertEqual(failures, [])
 
     def test_code_cells_parse(self) -> None:
         """Python 代码单元可解析。"""
