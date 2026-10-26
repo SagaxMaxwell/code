@@ -1,10 +1,9 @@
 ---
 date created: 2024-06-13 01:08
-date updated: 2026-08-05 00:00
+date updated: 2026-10-26T01:47
 ---
 
 # Windows 配置
-
 
 > Winget 管系统自带包管理和安装器类应用；Scoop 管便携应用、开发工具、字体和终端环境。
 

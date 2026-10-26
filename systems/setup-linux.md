@@ -1,10 +1,9 @@
 ---
 date created: 2024-05-02 14:29
-date updated: 2026-08-05 00:00
+date updated: 2026-10-26T13:15
 ---
 
 # Linux 配置
-
 
 > Fedora 用 DNF 管系统层、驱动、硬件控制和命令行工具；Flatpak 管桌面应用、Steam 与游戏工具；SteamOS 只记录 Steam 游戏模式和掌机场景专用配置。
 
@@ -307,7 +306,7 @@ flatpak uninstall --unused
 
 ### 基础原则
 
-> SteamOS 使用 Flatpak 管理普通应用；不要把 Fedora 的 DNF/COPR 流程照搬到 SteamOS。  
+> SteamOS 使用 Flatpak 管理普通应用；不要把 Fedora 的 DNF/COPR 流程照搬到 SteamOS。
 > Decky 插件安装不需要默认关闭只读系统。
 
 ### 只读系统
@@ -328,8 +327,8 @@ sudo systemctl enable --now inputplumber-suspend.service
 
 ### 游戏模式设置
 
-> 安装 SteamOS 后，先用热点连接，再安装软件。  
-> 陀螺仪设备大概率识别不到。  
+> 安装 SteamOS 后，先用热点连接，再安装软件。
+> 陀螺仪设备大概率识别不到。
 > 显示和游戏模式设置：禁用帧率限制、禁用垂直同步、启用强制合成、启用 gamescope 合成、启用 CEF 调试、系统缩放设置 150%。
 
 ### Decky 插件
@@ -340,8 +339,8 @@ less /tmp/decky-loader-install.sh
 sh /tmp/decky-loader-install.sh
 ```
 
-> Decky-Loader 启用开发者模式、CEF 远程调试。  
-> Decky LSFG-VK 启用 Performance Mode、WSI。  
+> Decky-Loader 启用开发者模式、CEF 远程调试。
+> Decky LSFG-VK 启用 Performance Mode、WSI。
 > 常用插件：Decky Clash、Decky-Undervolt、Pause Games、Decky-Framegen、Colores。
 
 ---

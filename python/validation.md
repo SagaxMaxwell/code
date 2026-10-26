@@ -1,5 +1,6 @@
 ---
-date updated: 2026-07-10
+date updated: 2026-10-26T13:14
+date created: 2026-10-25T14:34
 ---
 
 # 校验与序列化

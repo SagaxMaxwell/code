@@ -1,10 +1,9 @@
 ---
 date created: 2024-07-29 11:55
-date updated: 2026-07-24
+date updated: 2026-10-26T13:16
 ---
 
 # Flask
-
 
 ## Flask 优势（为什么选择 Flask）
 
@@ -346,9 +345,9 @@ if __name__ == '__main__':
 - 可以创建几乎所有类型的 Web 应用程序
 - 单页应用程序、RESTful API 应用程序、SaaS 应用程序、中小型网站、静态网站、微服务、Serverless 应用等
 
-> 单页应用程序，动态重写当前页面与用户的交互，避免了页面的重新加载 (单页应用程序框架有 React，Angular，Vue)  
-> 静态网页，静态网页是指不需要服务端处理、内容固定、不经常变化的网页  
-> SaaS 是 Software as a Service，指通过网络提供的软件服务，例如在线 CRM、协作文档、云后台等  
+> 单页应用程序，动态重写当前页面与用户的交互，避免了页面的重新加载 (单页应用程序框架有 React，Angular，Vue)
+> 静态网页，静态网页是指不需要服务端处理、内容固定、不经常变化的网页
+> SaaS 是 Software as a Service，指通过网络提供的软件服务，例如在线 CRM、协作文档、云后台等
 > Serverless 应用程序，是云计算的执行模型，无需直接管理服务器，通常按事件触发和资源使用计费
 
 ## 如何将 Twitter 或类似 API 与 Flask 应用程序集成
@@ -375,13 +374,13 @@ if __name__ == '__main__':
 - 主要目的是让某些对象在整个应用程序中全局可访问，如 `current_app` 和 `g` 对象
 - `<APP_NAME>.run()`（启动应用时），`with <APP_NAME>.app_context():`（显式推送）都会进入应用程序上下文
 
-> 应用程序上下文是针对整个应用程序的，是全局的，并且在整个应用程序的生命周期内都是活跃的  
+> 应用程序上下文是针对整个应用程序的，是全局的，并且在整个应用程序的生命周期内都是活跃的
 > 请求上下文是针对单个 HTTP 请求的，是临时的，只在处理请求时活跃
 
 ## 如何在 Flask 中创建一个 RESTful 应用程序
 
 - 小型 API 可以直接使用 Flask 路由返回字典或 `jsonify()`。
-- 需要 OpenAPI、请求校验和类型契约时，可以接入 Pydantic、apispec、Connexion 或 APIFlask。
+- 需要 OpenAPI、请求校验和类型契约时，可以接入 Pydantic、apispec、Connection 或 APIFlask。
 - 已有 Flask 项目需要资源路由组织时，可以评估 Flask-RESTX；API-first 新项目也可以直接评估 FastAPI。
 
 ```python
@@ -429,8 +428,8 @@ python -m pytest
 flask --app app shell
 ```
 
-> [Flask 官方文档](https://flask.palletsprojects.com)  
-> [Flask 安装文档](https://flask.palletsprojects.com/en/stable/installation/)  
+> [Flask 官方文档](https://flask.palletsprojects.com)
+> [Flask 安装文档](https://flask.palletsprojects.com/en/stable/installation/)
 > [Flask JavaScript、fetch 和 JSON](https://flask.palletsprojects.com/en/stable/patterns/javascript/)
 
 ## Django 和 Flask（Flask 定义）
@@ -645,7 +644,7 @@ class User(db.Model):
     )
 ```
 
-> 在字段中设置 `index=True` 自动添加索引  
+> 在字段中设置 `index=True` 自动添加索引
 > 在 `__table_args__` 可手动设置其他索引，参数为元组
 
 ## Flask 如何配置到 Nginx 中

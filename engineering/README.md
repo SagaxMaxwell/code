@@ -1,3 +1,8 @@
+---
+date created: 2026-10-25T14:38
+date updated: 2026-10-26T13:14
+---
+
 # 软件工程
 
 - [[architecture|软件过程与架构]]、[[design-patterns|设计模式]]

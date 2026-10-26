@@ -1,10 +1,9 @@
 ---
 date created: 2024-07-01 13:13
-date updated: 2026-05-08 23:53
+date updated: 2026-10-26T13:15
 ---
 
 # Python 函数与对象
-
 
 ## Python 的参数传递机制是什么？
 
